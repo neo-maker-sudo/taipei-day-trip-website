@@ -1,7 +1,56 @@
-from flask import *
+from flask import Flask, request, render_template, jsonify
+from flask_sqlalchemy import SQLAlchemy
+from flask_marshmallow import Marshmallow
+import math
+import json
+
 app=Flask(__name__)
 app.config["JSON_AS_ASCII"]=False
 app.config["TEMPLATES_AUTO_RELOAD"]=True
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SQLALCHEMY_DATABASE_URI'] = "mysql+pymysql://neo:!Neoneo123@localhost:3306/website"
+
+db = SQLAlchemy()
+ma = Marshmallow()
+
+i = 0
+def mydefault():
+    global i
+    if i < 12:
+        n = 0
+
+    i += 1
+    if i != 0 and i % 12 == 0:
+        n = i / 12
+        result = math.floor(n)
+
+    n = i / 12
+    result = math.floor(n)
+    return
+
+class Trip(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(255), nullable=False)
+    category = db.Column(db.String(255), nullable=False)
+    description = db.Column(db.Text, nullable=False)
+    address = db.Column(db.String(255), nullable=False)
+    transport = db.Column(db.Text)
+    mrt = db.Column(db.String(255))
+    latitude = db.Column(db.Float, nullable=False)
+    longitude = db.Column(db.Float, nullable=False)
+    images = db.Column(db.String(255), nullable=False)
+    page = db.Column(db.Integer, primary_key=False, default=mydefault)
+
+    def __repr__(self):
+        return f"Trip('{self.id}','{self.name}', '{self.category}', '{self.description}', '{self.address}', '{self.transport}', '{self.mrt}', '{self.latitude}', '{self.longitude}', '{self.images}', '{self.page}')"
+
+class TripSchema(ma.Schema):
+	class Meta:
+		fields = ('id', 'name', 'category', 'description', 'address', 'transport', 'mrt', 'latitude', 'longitude', 'images')
+		
+
+# init Schema
+tripSchema = TripSchema(many=True)
 
 # Pages
 @app.route("/")
@@ -17,4 +66,55 @@ def booking():
 def thankyou():
 	return render_template("thankyou.html")
 
-app.run(port=埠號)
+@app.route("/api/attractions")
+def attractions():
+    page = request.args.get('page', None)
+    keyword = request.args.get('keyword', None)
+    if keyword is None:
+        data = Trip.query.filter_by(page=page).all()
+        if data:
+            output = tripSchema.dump(data)
+            return jsonify({"nextPage": int(page) + 1, "data": output})
+        else:
+            return jsonify({"error": True, "message": "Server error"}), 500
+    elif page is None:
+        return jsonify({"error": True, "message": "Server error"}), 500
+    else:
+        sql_cmd = f"""
+            SELECT * FROM trip WHERE page={page} AND name LIKE "%%{keyword}%%"
+        """
+        query_data = db.engine.execute(sql_cmd)
+        output2 = tripSchema.dump(query_data)
+        if output2 != []:
+            return jsonify({"nextPage": 1, "data": output2})
+        else:
+            return jsonify({"error": True, "message": "Server error"}), 500
+
+
+@app.route("/api/attraction/<int:attractionId>")
+def sepefic_search(attractionId):
+    data = Trip.query.filter_by(id=attractionId).first()
+    if data:
+        return jsonify({"data": {
+            "id": data.id,
+            "name": data.name,
+            "category": data.category,
+            "description": data.description,
+            "address": data.address,
+            "transport": data.transport,
+            "mrt": data.mrt,
+            "latitude": data.latitude,
+            "longitude": data.longitude,
+            "image": [
+                data.images
+            ]
+        }})
+    elif data is None:
+        return jsonify({"error": True, "message": "Wrong attraction id"}), 400
+    else:
+        return jsonify({"error": True, "message": "Server error"}), 500
+
+if __name__ == '__main__':
+	with app.app_context():
+		db.init_app(app)
+	app.run(debug=True,port=3000)
