@@ -91,10 +91,15 @@ def attractions():
         query_data = db.engine.execute(sql_cmd)
         TotalOutput = tripSchema.dump(query_data)
         if TotalOutput != []:
-            return jsonify({"nextPage": int(page) + 1, "data": TotalOutput})
+            # return jsonify({"nextPage": int(page) + 1, "data": TotalOutput})
+            return jsonify({"nextPage": None, "data": []})
         else:
-            return jsonify({"nextPage": None, "data": []}), 500
-
+            sql_cmd_keywordError = f"""
+                SELECT * FROM trip WHERE page={page}
+            """
+            query_page_output = db.engine.execute(sql_cmd_keywordError)
+            onlyPageOutput = tripSchema.dump(query_page_output)
+            return jsonify({"nextPage": int(page) + 1, "data": onlyPageOutput})
 
 @app.route("/api/attraction/<int:attractionId>")
 def sepefic_search(attractionId):
@@ -123,3 +128,5 @@ if __name__ == '__main__':
 	with app.app_context():
 		db.init_app(app)
 	app.run(host="0.0.0.0", port=3000)
+
+    
