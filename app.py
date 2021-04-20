@@ -91,7 +91,6 @@ def attractions():
         query_data = db.engine.execute(sql_cmd)
         TotalOutput = tripSchema.dump(query_data)
         if TotalOutput != []:
-            # return jsonify({"nextPage": int(page) + 1, "data": TotalOutput})
             return jsonify({"nextPage": None, "data": []})
         else:
             sql_cmd_keywordError = f"""
