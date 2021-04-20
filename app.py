@@ -78,17 +78,22 @@ def attractions():
         else:
             return jsonify({"error": True, "message": "Server error"}), 500
     elif page is None:
-        return jsonify({"error": True, "message": "Server error"}), 500
+        sql_cmd_pageNone = f"""
+            SELECT * FROM trip WHERE name LIKE "%%{keyword}%%"
+        """
+        query_data_page = db.engine.execute(sql_cmd_pageNone)
+        keywordOutput = tripSchema.dump(query_data_page)
+        return jsonify({"data": keywordOutput})
     else:
         sql_cmd = f"""
-            SELECT * FROM trip WHERE page={page} AND name LIKE "%%{keyword}%%"
+            SELECT * FROM trip WHERE name LIKE "%%{keyword}%%" AND page={page}
         """
         query_data = db.engine.execute(sql_cmd)
-        output2 = tripSchema.dump(query_data)
-        if output2 != []:
-            return jsonify({"nextPage": 1, "data": output2})
+        TotalOutput = tripSchema.dump(query_data)
+        if TotalOutput != []:
+            return jsonify({"nextPage": int(page) + 1, "data": TotalOutput})
         else:
-            return jsonify({"error": True, "message": "Server error"}), 500
+            return jsonify({"nextPage": None, "data": []}), 500
 
 
 @app.route("/api/attraction/<int:attractionId>")
@@ -117,4 +122,4 @@ def sepefic_search(attractionId):
 if __name__ == '__main__':
 	with app.app_context():
 		db.init_app(app)
-	app.run(host='0.0.0.0', port=3000)
+	app.run(host="0.0.0.0", port=3000)
