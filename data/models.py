@@ -24,7 +24,8 @@ def mydefault():
     result = math.floor(n)
     return result
 
-class Trip(db.Model):
+
+class Attraction(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255), nullable=False)
     category = db.Column(db.String(255), nullable=False)
@@ -38,7 +39,7 @@ class Trip(db.Model):
     page = db.Column(db.Integer, primary_key=False, default=mydefault)
 
     def __repr__(self):
-        return f"Trip('{self.name}', '{self.category}', '{self.description}', '{self.address}', '{self.transport}', '{self.mrt}', '{self.latitude}', '{self.longitude}', '{self.images}', '{self.page}')"
+        return f"Attraction('{self.name}', '{self.category}', '{self.description}', '{self.address}', '{self.transport}', '{self.mrt}', '{self.latitude}', '{self.longitude}', '{self.images}', '{self.page}')"
 
 def test():
     with open("taipei-attractions.json", mode='r', encoding="utf-8") as file:
@@ -56,7 +57,7 @@ def test():
         longitude = result["longitude"]
         images = result["file"].replace("http", " http").split(' ')[1]
 
-        trip = Trip(name=name, category=category, description=description, address=address, transport=transport, mrt=mrt, latitude=latitude, longitude=longitude, images=images)
+        trip = Attraction(name=name, category=category, description=description, address=address, transport=transport, mrt=mrt, latitude=latitude, longitude=longitude, images=images)
         db.session.add(trip)
         db.session.commit()
 

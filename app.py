@@ -28,7 +28,8 @@ def mydefault():
     result = math.floor(n)
     return
 
-class Trip(db.Model):
+
+class Attraction(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255), nullable=False)
     category = db.Column(db.String(255), nullable=False)
@@ -42,7 +43,7 @@ class Trip(db.Model):
     page = db.Column(db.Integer, primary_key=False, default=mydefault)
 
     def __repr__(self):
-        return f"Trip('{self.id}','{self.name}', '{self.category}', '{self.description}', '{self.address}', '{self.transport}', '{self.mrt}', '{self.latitude}', '{self.longitude}', '{self.images}', '{self.page}')"
+        return f"Attraction('{self.id}','{self.name}', '{self.category}', '{self.description}', '{self.address}', '{self.transport}', '{self.mrt}', '{self.latitude}', '{self.longitude}', '{self.images}', '{self.page}')"
 
 class TripSchema(ma.Schema):
 	class Meta:
@@ -66,12 +67,13 @@ def booking():
 def thankyou():
 	return render_template("thankyou.html")
 
+
 @app.route("/api/attractions")
 def attractions():
     page = request.args.get('page', None)
     keyword = request.args.get('keyword', None)
     if keyword is None:
-        data = Trip.query.filter_by(page=page).all()
+        data = Attraction.query.filter_by(page=page).all()
         if data:
             output = tripSchema.dump(data)
             return jsonify({"nextPage": int(page) + 1, "data": output})
@@ -79,14 +81,14 @@ def attractions():
             return jsonify({"error": True, "message": "Server error"}), 500
     elif page is None:
         sql_cmd_pageNone = f"""
-            SELECT * FROM trip WHERE name LIKE "%%{keyword}%%"
+            SELECT * FROM attraction WHERE name LIKE "%%{keyword}%%"
         """
         query_data_page = db.engine.execute(sql_cmd_pageNone)
         keywordOutput = tripSchema.dump(query_data_page)
         return jsonify({"data": keywordOutput})
     else:
         sql_cmd = f"""
-            SELECT * FROM trip WHERE name LIKE "%%{keyword}%%" ORDER BY id LIMIT {int(page)*12},12;
+            SELECT * FROM attraction WHERE name LIKE "%%{keyword}%%" ORDER BY id LIMIT {int(page)*12},12;
         """
         query_data = db.engine.execute(sql_cmd)
         TotalOutput = tripSchema.dump(query_data)
@@ -95,7 +97,7 @@ def attractions():
                 return jsonify({"nextPage": None, "data": TotalOutput})
             else:
                 sql_cmd_check = f"""
-                    SELECT * FROM trip WHERE name LIKE "%%{keyword}%%" ORDER BY id LIMIT {(int(page)+1)*12},12;
+                    SELECT * FROM attraction WHERE name LIKE "%%{keyword}%%" ORDER BY id LIMIT {(int(page)+1)*12},12;
                 """
                 query_data_check = db.engine.execute(sql_cmd_check)
                 TotalOutput_check = tripSchema.dump(query_data_check)
@@ -108,7 +110,7 @@ def attractions():
 
 @app.route("/api/attraction/<int:attractionId>")
 def sepefic_search(attractionId):
-    data = Trip.query.filter_by(id=attractionId).first()
+    data = Attraction.query.filter_by(id=attractionId).first()
     if data:
         return jsonify({"data": {
             "id": data.id,
