@@ -86,12 +86,23 @@ def attractions():
         return jsonify({"data": keywordOutput})
     else:
         sql_cmd = f"""
-            SELECT * FROM trip WHERE name LIKE "%%{keyword}%%" ORDER BY id LIMIT {int(page)*12-int(page)},11;
+            SELECT * FROM trip WHERE name LIKE "%%{keyword}%%" ORDER BY id LIMIT {int(page)*12},12;
         """
         query_data = db.engine.execute(sql_cmd)
         TotalOutput = tripSchema.dump(query_data)
         if TotalOutput != []:
-            return jsonify({"nextPage": int(page) + 1, "data": TotalOutput})
+            if len(TotalOutput) < 12:
+                return jsonify({"nextPage": None, "data": TotalOutput})
+            else:
+                sql_cmd_check = f"""
+                    SELECT * FROM trip WHERE name LIKE "%%{keyword}%%" ORDER BY id LIMIT {(int(page)+1)*12},12;
+                """
+                query_data_check = db.engine.execute(sql_cmd_check)
+                TotalOutput_check = tripSchema.dump(query_data_check)
+                if TotalOutput_check != []:
+                    return jsonify({"nextPage": int(page) + 1, "data": TotalOutput})
+                else:
+                    return jsonify({"nextPage": None, "data": TotalOutput})
         else:
             return jsonify({"nextPage": None, "data":[]})
 
