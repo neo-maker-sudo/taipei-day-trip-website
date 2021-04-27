@@ -1,0 +1,104 @@
+#signup {
+    cursor: pointer;
+}
+
+.signup-h3 {
+    font-style: normal;
+    font-weight: bold;
+    font-size: 24px;
+    line-height: 24px;
+    color: #666666;
+    margin: 15px 0;
+}
+
+#signup-input_1{
+    width: 310px;
+    height: 45px;
+    border: 1px solid #CCCCCC;
+    border-radius: 5px;
+    margin: 0 0 5px 0;
+}
+
+#signup-input_2{
+    width: 310px;
+    height: 45px;
+    border: 1px solid #CCCCCC;
+    border-radius: 5px;
+    margin: 5px 0;
+}
+
+#signup-input_3 {
+    width: 310px;
+    height: 45px;
+    border: 1px solid #CCCCCC;
+    border-radius: 5px;
+    margin: 5px 0;
+}
+
+.signup-button{
+    width: 310px;
+    height: 47px;
+    background: #448899;
+    border-radius: 5px;
+    color: white;
+    border: none;
+    margin: 5px 0 0 0;
+}
+
+.signup-p{
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 13px;
+    text-align: center;
+}
+
+.signup-div{
+    position: absolute;
+    width: 340px;
+    height: 332px;
+    left: 790px;
+    top: 80px;
+    background: #FFFFFF;
+    box-shadow: 0px 4px 60px #AAAAAA;
+    border-radius: 6px;
+}
+
+.signup-span{
+    position: absolute;
+    right: 12px;
+    top: 14px;
+    font-size: 25px;
+}
+
+@media only screen and (min-width: 600px) and (max-width: 1200px) {
+    .signup-div{
+        left: 390px;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .signup-div{
+        left: 120px;
+    }
+
+}
+
+@media only screen and (max-width: 420px){
+    .signup-div{
+        left: 30px;
+    }
+}
+
+@media only screen and (max-width: 380px){
+    .signup-div{
+        width: 320px;
+        left: 20px;
+    }
+    #signup-input_1,
+    #signup-input_2,
+    #signup-input_3{
+        width: 280px;
+    }
+
+}
