@@ -6,6 +6,11 @@ body{
     padding: 0;
 }
 
+.header{
+    position: relative;
+    height: 54px;
+}
+
 .navbar-brand{
     text-decoration: none;
     color: #448899;
@@ -49,24 +54,28 @@ body{
 
 .nav {
     list-style: none;
-    padding: 25px;
     font-weight: bold;
+    max-width: 1200px;
+    display: flex;
+    justify-content: space-between;
+    margin: 10px auto;
 }
 
 .nav-div-left {
-    display: inline-flex;
-    position: absolute;
-    left: 360px;
-    transform: translate(0, -50%);
+    position: static;
+    left: 0px;
     color: #448899;
     font-weight:bolder;
+    margin: 10px 0;
+    height: 34px;
+    width: 150px;
 }
 
 .nav-div-right {
     display: inline-flex;
-    position: absolute;
-    right: 370px;
-    transform: translate(0, -50%);
+    position: static;
+    right: 0px;
+    margin: 10px 0;
 }
 
 .nav-div-right li {
@@ -78,31 +87,20 @@ body{
 }
 
 .section-1 {
-    text-align: center;
     background: linear-gradient(135deg, #AADDEE 0%, #66AABB 100%);
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-    align-items: flex-start;
-    padding: 0px 232px;
-    height: 320px;
+    padding: 85px 0;
 }
 
 .section-1-title{
-    position: absolute;
     height: 41px;
-    left: 145px;
-    top: 70px;
     font-size: 28px;
     line-height: 24px;
     width: 320px;
+    margin: 0;
 }
 
 .section-1-content{
-    position: absolute;
     height: 22px;
-    left: 145px;
-    top: 130px;
     font-size: 16px;
     line-height: 13px;
     width: 320px;
@@ -110,18 +108,15 @@ body{
 
 .section-1-searchBox{
     display: flex;
-    position: absolute;
-    left: 145px;
-    top: 185px;
 }
 
 .section-1-div {
-    width: 1200px;
+    max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
-    position: relative;
     text-align: left;
     color: aliceblue;
+    position: relative;
     z-index: 1;
 }
 
@@ -134,10 +129,12 @@ body{
 }
 
 #section-1-welcome{
-    position: static;
-    top: 50px;
+    position: absolute;
+    top: 66px;
+    width: 650px;
+    height: 320px;
+    right: 190px;
     z-index: 0;
-
 }
 
 .section-1-div input::-webkit-input-placeholder{
@@ -169,8 +166,6 @@ body{
 .mag{
     font-size: 20px;
 }
-
-
 
 .section-1-img{
     background-image: url('../image-1.jpg');
@@ -207,11 +202,11 @@ body{
 
 .img {
     height: 202px;
-    background-size: 100% 100%;
+    background-size: cover;
+    background-position: center;
     max-height: 275px;
     border-radius: 5px 5px 0 0;
 }
-
 
 .img-div h5,
 .img-div h6 {
@@ -252,17 +247,6 @@ body{
 }
 
 @media only screen and (min-width: 600px) and (max-width: 1200px) {
-    /* section 1 */
-    .section-1{
-        padding: 0px 200px;
-    }
-    .nav-div-left{
-        left: 100px;
-    }
-    .nav-div-right{
-        right: 100px;
-    }
-
     /* section 2 */
     #section-2 {
         width: 90%;
@@ -273,57 +257,24 @@ body{
     .section-1-title,
     .section-1-content,
     .section-1-searchBox{
-        left: 0px;
+        margin-left: 85px;
     }
-}
-
-@media only screen and (min-width: 800px) and (max-width: 1200px) {
-    .img{
-        height: 275px;
+    #section-1-welcome{
+        right: 100px;
     }
-}
-
-@media only screen and (max-width: 1000px){
-    .section-1{
-        padding: 0px 100px;
-    }
-    .section-1-title,
-    .section-1-content{
-        width: 320px;
-    }
-    .section-1-div input {
-        width: 300px;
-    }
-
 }
 
 @media only screen and (max-width: 800px){
     #section-1-welcome{
         position: absolute;
-        width: 500px;
-        height: auto;
         right: 0;
-        top: 125px;
+        width: 500px;
+        height: 246px;
+        top: 140px;
     }
 }
 
 @media only screen and (max-width: 600px) {
-    /* section 1 */
-    .section-1{
-        padding: 0px 100px;
-    }
-    .nav-div-left{
-        left: 35px;
-    }
-    .nav-div-right{
-        right: 35px;
-    }
-    #section-1-welcome{
-        width: 400px;
-        height: auto;
-        top: 173px;
-    }
-
     /* section 2 */
     #section-2 {
         width: 90%;
@@ -335,64 +286,35 @@ body{
     .section-1-title,
     .section-1-content,
     .section-1-searchBox{
-        left: 0px;
+        margin-left: 50px;
     }
-}
-
-
-@media only screen and (min-width: 540px) and (max-width: 600px) {
-    .img{
-        height: 250px;
+    .section-1-div input {
+        width: 300px;
     }
-}
-
-@media only screen and (max-width: 540px) {
-    .section-1{
-        padding: 0px 65px;;
-    }
-
-}
-
-@media only screen and (max-width: 480px) {
-    .section-1{
-        padding: 0px 50px;
+    #section-1-welcome{
+        position: absolute;
+        right: 0;
+        width: 400px;
+        height: 216px;
+        top: 170px;
     }
 }
 
 @media only screen and (max-width: 440px){
     /* section 1 */
-    .section-1{
-        padding: 0px 40px;
-        height: 280px;
-    }
-    .section-1-searchBox{
-        width: 90%;
-    }
-    .nav-div-left{
-        left: 0;
-    }
-    .nav-div-right{
-        right: 0;
-    }
     .section-1-div input {
         width: 230px;
-    }
-    .section-1-title{
-        left: 20px;
-        top: 20px
-    }
-    .section-1-content{
-        left: 20px;
-        top: 90px;
-    }
-    .section-1-searchBox{
-        left: 20px;
-        top: 155px;
     }
     #section-1-welcome{
         width: 276px;
         height: 148px;
-        top: 182px;
+        top: 238px;
+    }
+
+    .section-1-title,
+    .section-1-content,
+    .section-1-searchBox{
+        margin-left: 30px;
     }
 
     /* section 2 */
@@ -401,15 +323,4 @@ body{
     }
 }
 
-@media only screen and (max-width: 400px){
-    .section-1{
-        padding: 0px 20px;
-    }
-}
-
-@media only screen and (max-width: 360px){
-    .section-1{
-        padding: 0px;
-    }
-}
 
