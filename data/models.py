@@ -4,10 +4,15 @@ import json
 import math
 import re
 import os
+
+
+# with open('/etc/config.json') as config_file:
+#     config = json.load(config_file)
+
 app = Flask(__name__)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_DATABASE_URI'] = f"mysql+pymysql://neo:{os.environ.get('NEO_MYSQL')}@localhost:3306/website"
-# !Neoneo123
+
 db = SQLAlchemy()
 
 class Attraction(db.Model):

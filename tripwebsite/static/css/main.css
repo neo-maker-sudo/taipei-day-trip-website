@@ -212,13 +212,20 @@ body{
     border-radius: 5px 5px 0 0;
 }
 
-.img-div p,
+
 .img-div h5,
 .img-div h6 {
     margin: 0;
     padding: 5px;
     color: #757575;
     font-size: 16px;
+}
+
+.img-div p{
+    margin: 0;
+    padding: 5px;
+    color: #757575;
+    font-size: 15px;
 }
 
 .pCategory{
@@ -235,13 +242,12 @@ body{
 }
 
 
-.footer {
+#footer {
     text-align: center;
     background-color: darkgray;
     padding: 5px 0;
     color: white;
     position: absolute;
-    /* bottom: 0; */
     width: 100%;
 }
 

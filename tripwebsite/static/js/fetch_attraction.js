@@ -13,6 +13,7 @@ const placeDiv = document.getElementsByClassName('img');
 const placeName = document.getElementsByClassName('pName');
 const placeCategory = document.getElementsByClassName('pMrt');
 const placeMrt = document.getElementsByClassName('pCategory');
+const footer = document.getElementById('footer');
 
 var page = 0;
 let username;
@@ -156,15 +157,18 @@ class UI {
         search.addEventListener('submit',(e)=>{
             e.preventDefault()
             const searchInput = document.getElementById('section-1-input').value;
-            const url = `http://127.0.0.1:3000/api/attractions?page=${page}&keyword=${searchInput}`
+            const url = `http://127.0.0.1:3000/api/attractions?page=${page}&keyword=${searchInput}`;
+            post_flag = true;
             fetch(url)
             .then(async(response)=>{
                 const result = await response.json()
                 var nextPage = result.nextPage
                 const data = await result.data
-                if(data.length === 0 || data.length === undefined){
+                // 不存在的keyword
+                if(result.nextPage == null){
                     this.removeAttraction()
                     this.noResult()
+                    return result
                 }else{
                     const filterItem = data.map((item)=>{
                         const name = item.name
@@ -173,21 +177,23 @@ class UI {
                         const images = item.images
                         return { name, mrt, category, images } 
                     })
-                    return {filterItem, nextPage}
+                    post_flag =false
+                    return {data, nextPage}
                 }
             })
             .then((filterItem)=>{
-                if(filterItem != undefined){
-                    this.specificAttraction(filterItem.filterItem)
+                if(filterItem.data.length > 0){
+                    this.specificAttraction(filterItem.data)
                 }
                 window.onscroll = () => {
-                    if(window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 10){
+                    if(window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 100){
                         const searchInputSecond = document.getElementById('section-1-input').value
                         this.nextPageKeyword(filterItem.nextPage, searchInputSecond)
-                    } 
+                    }
                 }
             })
             .catch((err)=>{
+                post_flag =false
                 console.log(err)
             })
         })
@@ -195,9 +201,12 @@ class UI {
 
     // next keyword submit
     async nextPageKeyword(nextPage, searchInputSecond){
-        if(post_flag || nextPage == null) {
+        if(post_flag) {
             return;
         };
+        if(nextPage == null){
+            return
+        }
         const url = `http://127.0.0.1:3000/api/attractions?page=${nextPage}&keyword=${searchInputSecond}`;
         post_flag = true;
         await fetch(url)
@@ -205,24 +214,21 @@ class UI {
             const result = await response.json()
             var nextPage = result.nextPage
             const data = await result.data
-            if(data.length === 0 || data === undefined){
-                return;
-            }else{
-                const filterItem = data.map((item)=>{
-                    const name = item.name
-                    const mrt = item.mrt
-                    const category = item.category
-                    const images = item.images
-                    return { name, mrt, category, images } 
-                })
-                post_flag =false
-                return {filterItem, nextPage}
-            }
+            const filterItem = data.map((item)=>{
+                const name = item.name
+                const mrt = item.mrt
+                const category = item.category
+                const images = item.images
+                return { name, mrt, category, images } 
+            })
+            post_flag =false
+            return {filterItem, nextPage}
+            
         })
         .then((filterItem)=>{
             this.displayAttraction(filterItem.filterItem)
             window.onscroll = () => {
-                if(window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 10){
+                if(window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 100){
                     const searchInputSecond = document.getElementById('section-1-input').value
                     this.nextPageKeyword(filterItem.nextPage,searchInputSecond)
                 } 
@@ -242,10 +248,10 @@ document.addEventListener('DOMContentLoaded',()=>{
     ui.submitKeyword(page)
     ui.fetchData(page)
 
-    // const searchBtn = document.getElementById('mag-btn')
-    // searchBtn.onclick = ()=>{
-    //     ui.fetchKeyword(page)
-    // }
+    const searchBtn = document.getElementById('mag-btn')
+    searchBtn.onclick = ()=>{
+        ui.submitKeyword(page)
+    }
     
 })
 
