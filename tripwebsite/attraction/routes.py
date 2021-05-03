@@ -5,10 +5,10 @@ from tripwebsite.models import Attraction
 import json
 
 
-attr = Blueprint('attr', __name__)
+attrs = Blueprint('attr', __name__)
 
 
-@attr.route("/api/attractions")
+@attrs.route("/api/attractions")
 def attractions():
     page = request.args.get('page', None)
     keyword = request.args.get('keyword', None)
@@ -64,7 +64,7 @@ def attractions():
             return jsonify({"message": "server error"}), 500
 
 
-@attr.route("/api/attraction/<int:attractionId>")
+@attrs.route("/api/attraction/<int:attractionId>")
 def sepefic_search(attractionId):
     data = Attraction.query.filter_by(id=attractionId).first()
     if data:

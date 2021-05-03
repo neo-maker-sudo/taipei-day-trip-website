@@ -1,4 +1,3 @@
-// const section_1 = document.querySelector('.section-1');
 const section_2 = document.getElementById('section-2');
 const btn = document.getElementById('btn');
 const login = document.getElementById('login');
@@ -9,6 +8,7 @@ const span_1 = document.getElementsByClassName("close")[0];
 const span_2 = document.getElementsByClassName("close")[1];
 const search = document.querySelector('.section-1-searchBox');
 
+const allImgDiv = document.getElementsByClassName('img-div');
 const placeDiv = document.getElementsByClassName('img');
 const placeName = document.getElementsByClassName('pName');
 const placeCategory = document.getElementsByClassName('pMrt');
@@ -16,6 +16,7 @@ const placeMrt = document.getElementsByClassName('pCategory');
 const footer = document.getElementById('footer');
 
 var page = 0;
+var index = 0;
 let username;
 let email;
 let password;
@@ -71,6 +72,8 @@ class UI {
         arrInfo.map( async (item,i)=>{
             await this.removeAttraction()
             await this.createItem()
+            this.intoDetail()
+            allImgDiv[i].setAttribute('id',`${item.id}`)
             placeDiv[i].style.backgroundImage = `url(${item.images[0]})`
             placeName[i].textContent = `${item.name}`
             placeMrt[i].textContent = `${item.mrt}`
@@ -120,7 +123,7 @@ class UI {
         if(post_flag) {
             return;
         };
-        const url = `http://127.0.0.1:3000/api/attractions?page=${page}`;
+        const url = `${window.port}/api/attractions?page=${page}`;
         post_flag = true;
         await fetch(url)
         .then( async (response)=>{
@@ -128,15 +131,15 @@ class UI {
             let nextPage = result.nextPage
             const data = await result.data
             const filterItem = data.map((item)=>{
+                const id = item.id
                 const name = item.name
                 const mrt = item.mrt
                 const category = item.category
                 const images = item.images
-                return { name, mrt, category, images } 
+                return { id, name, mrt, category, images } 
             })
             post_flag =false
             return {filterItem, nextPage}
-            
         })
         .then((filterItem)=>{
             this.displayAttraction(filterItem.filterItem)
@@ -157,7 +160,7 @@ class UI {
         search.addEventListener('submit',(e)=>{
             e.preventDefault()
             const searchInput = document.getElementById('section-1-input').value;
-            const url = `http://127.0.0.1:3000/api/attractions?page=${page}&keyword=${searchInput}`;
+            const url = `${window.port}/api/attractions?page=${page}&keyword=${searchInput}`;
             post_flag = true;
             fetch(url)
             .then(async(response)=>{
@@ -170,12 +173,13 @@ class UI {
                     this.noResult()
                     return result
                 }else{
-                    const filterItem = data.map((item)=>{
+                    data.map((item)=>{
+                        const id = item.id
                         const name = item.name
                         const mrt = item.mrt
                         const category = item.category
                         const images = item.images
-                        return { name, mrt, category, images } 
+                        return { id, name, mrt, category, images } 
                     })
                     post_flag =false
                     return {data, nextPage}
@@ -207,7 +211,7 @@ class UI {
         if(nextPage == null){
             return
         }
-        const url = `http://127.0.0.1:3000/api/attractions?page=${nextPage}&keyword=${searchInputSecond}`;
+        const url = `${window.port}/api/attractions?page=${nextPage}&keyword=${searchInputSecond}`;
         post_flag = true;
         await fetch(url)
         .then(async(response)=>{
@@ -215,11 +219,12 @@ class UI {
             var nextPage = result.nextPage
             const data = await result.data
             const filterItem = data.map((item)=>{
+                const id = item.id
                 const name = item.name
                 const mrt = item.mrt
                 const category = item.category
                 const images = item.images
-                return { name, mrt, category, images } 
+                return { id, name, mrt, category, images } 
             })
             post_flag =false
             return {filterItem, nextPage}
@@ -239,19 +244,29 @@ class UI {
             console.log(err)
         })
     }
+
+    intoDetail(){
+        for(var i=0;i<allImgDiv.length;i++){
+            allImgDiv[i].num = i
+            allImgDiv[i].onclick = function(){
+                location.href = `${window.port}` + location.pathname + `attraction/${this.id}`            
+            }
+        }
+    }
 }
 
-document.addEventListener('DOMContentLoaded',()=>{
+document.addEventListener('DOMContentLoaded',async()=>{
     const ui = new UI;
     ui.displayLogin()
     ui.displaySignup()
-    ui.submitKeyword(page)
-    ui.fetchData(page)
-
-    const searchBtn = document.getElementById('mag-btn')
-    searchBtn.onclick = ()=>{
-        ui.submitKeyword(page)
-    }
     
+    if(path == "/"){
+        await ui.fetchData(page)
+        await ui.submitKeyword(page)
+        ui.intoDetail()
+        const searchBtn = document.getElementById('mag-btn');
+        searchBtn.onclick = ()=>{
+            ui.submitKeyword(page)
+        }
+    }  
 })
-

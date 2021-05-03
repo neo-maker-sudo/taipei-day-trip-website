@@ -14,6 +14,7 @@ body{
 .navbar-brand{
     text-decoration: none;
     color: #448899;
+    font-size: 25px;
 }
 
 .navbar-brand-2{
@@ -58,7 +59,8 @@ body{
     max-width: 1200px;
     display: flex;
     justify-content: space-between;
-    margin: 10px auto;
+    margin: 10px auto 0 auto;
+    align-items: center;
 }
 
 .nav-div-left {
@@ -126,6 +128,7 @@ body{
     border: none;
     padding: 0;
     border-radius: 5px 0 0 5px;
+    padding-left:1em;
 }
 
 #section-1-welcome{
@@ -135,10 +138,6 @@ body{
     height: 320px;
     right: 190px;
     z-index: 0;
-}
-
-.section-1-div input::-webkit-input-placeholder{
-    padding-left:1em;
 }
 
 .section-1-searchDiv{
@@ -188,6 +187,8 @@ body{
     margin: 10px;
     display: inline-block;
     text-align: left;
+    z-index: 100;
+    cursor: pointer;
 }
 
 .img-div-3{
@@ -204,7 +205,6 @@ body{
     height: 202px;
     background-size: cover;
     background-position: center;
-    max-height: 275px;
     border-radius: 5px 5px 0 0;
 }
 
@@ -231,11 +231,11 @@ body{
     text-align: center;
     margin: 10px auto;
 }
+
 #btn{
     width: 100px;
     height: 40px;
 }
-
 
 #footer {
     text-align: center;
@@ -302,13 +302,16 @@ body{
 
 @media only screen and (max-width: 440px){
     /* section 1 */
+    .section-1 {
+        padding: 70px 0;
+    }
     .section-1-div input {
         width: 230px;
     }
     #section-1-welcome{
         width: 276px;
         height: 148px;
-        top: 238px;
+        top: 208px;
     }
 
     .section-1-title,

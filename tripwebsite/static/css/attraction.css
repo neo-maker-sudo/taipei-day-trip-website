@@ -1,0 +1,265 @@
+.attraction-section-main{
+    width: 540px;
+    height: 406px;
+    overflow: hidden;
+    position: relative;
+    border-radius: 5px;
+    margin: 0 auto;
+}
+
+.attraction-section-topDiv{
+    max-width: 540px;
+    height: 406px;
+    position: absolute;
+    display: flex;
+    transition: 2s;
+    left: 0;
+}
+
+.section-info-topDiv{
+    display: flex;
+}
+
+.section-info-topDiv p {
+    margin: 0 3px 16px 3px;    
+}
+
+.attraction-section-img{
+    max-width: 100%;
+    height: 406px;
+    background-size: cover;
+    background-position: center;
+    object-fit: cover;
+    margin: 0 0.1px;
+}
+
+.booking-dot{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    padding: 0;
+    margin-right: 15%;
+    margin-bottom: 1rem;
+    margin-left: 15%;
+}
+
+#attraction-description{
+    line-height: 30px;
+}
+
+#attraction-description,
+#attraction-address,
+#attraction-transport{
+    letter-spacing: 2px;
+}
+
+#attraction-section-input {
+    padding: 0.3em 0 0.3em 1em;
+}
+
+#attraction-section-info {
+    height: 406px;
+    margin: 0 0 0 15px;
+}
+
+#attraction-name {
+    margin:14px 0 14px 0;
+    font-size: 24px;
+}
+
+#attraction-section-div {
+    width: 600px;
+    height: 297px;
+    background-color: #E8E8E8;
+    border-radius: 5px;
+    padding: 15px 20px 0 20px;
+}
+
+#attraction-section-morning{
+    width: 22px;
+    height: 22px;
+    border-radius: 15px;
+}
+
+#attraction-section-afternoon{
+    width: 22px;
+    height: 22px;
+    background: white;
+    border-radius: 15px;
+}
+
+.attraction-hr {
+    width: 1200px;
+    border: 1px solid #E8E8E8;
+    margin: 40px auto;
+}
+
+.controls-visible {
+    position: absolute;
+    width: 100%;
+    bottom: 12px;
+    text-align: center;
+}
+
+.controls-visible label {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background-color: #fff;
+    border-radius: 50%;
+    margin: 0 3px;
+    border: 2px solid #fff;
+}
+#attraction-section-button{
+    background: #448899;
+    border-radius: 5px;
+    width: 154px;
+    height: 36px;
+    border: none;
+    color:white;
+    margin-top: 15px;
+}
+
+#attraction-section-1{
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    width: 1200px;
+    margin-top: 25px;
+    position: relative;
+}
+
+#attraction-section-date{
+    margin: 16px 0;
+    display: flex;
+    align-items: center;
+}
+
+#attraction-section-date div,
+#attraction-section-date label {
+    margin: 0 6px;
+}
+
+#attraction-section-2 {
+    width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+    margin-top: 15px;
+}
+
+.attraction-prev-span {
+    background-image: url('../btn_leftArrow.png');
+    width: 36px;
+    height: 36px;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    margin-left: 10px;
+    cursor: pointer;
+    z-index: 1;
+}
+
+.attraction-next-span {
+    background-image: url('../btn_rightArrow.png');
+    width: 36px;
+    height: 36px;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    margin-right: 10px;
+    cursor: pointer;
+    z-index: 1;
+}
+
+@media only screen and (min-width: 950px) and (max-width: 1200px) {
+    #attraction-section-1 {
+        width: 90%;
+    }
+    #attraction-section-2 {
+        width: 90%;
+    }
+    #attraction-section-div,
+    .attraction-hr {
+        width: 90%;
+    }
+}
+
+@media only screen and (min-width: 600px) and (max-width:950px){
+    #attraction-section-1 {
+        width: 90%;
+        display: block;
+    }
+    #attraction-section-2 {
+        width: 90%;
+    }
+    .attraction-section-main{
+        max-width: 90%;
+    }
+    #attraction-section-div,
+    .attraction-hr{
+        width: 90%;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    #attraction-section-1 {
+        width: 100%;
+        display: block;
+    }
+
+    #attraction-section-2 {
+        width: 90%;
+    }
+
+    #attraction-section-div,
+    .attraction-hr{
+        width: 90%;
+    }
+
+    .attraction-section-main{
+        width: 90%;
+        height: 350px;
+    }
+
+    #attraction-section-info{
+        max-width: 90%;
+        margin: 0 auto;
+    }
+
+    .attraction-section-img{
+        max-width: 100%;
+    }
+}
+
+@media only screen and (max-width: 500px){
+    #attraction-section-1 {
+        width: 100%;
+        display: block;
+    }
+
+    #attraction-section-2 {
+        width: 90%;
+    }
+
+    #attraction-section-div,
+    #attraction-section-info,
+    .attraction-hr{
+        width: 90%;
+    }
+    #attraction-section-date div, 
+    #attraction-section-date label{
+        margin: 0 3px;
+    }
+
+    .attraction-section-main{
+        width: 100%;
+    }
+    .attraction-section-img{
+        height: 378px;
+    }
+}
