@@ -58,7 +58,7 @@ body{
     max-width: 1200px;
     display: flex;
     justify-content: space-between;
-    margin: 10px auto;
+    margin: 10px auto 0 auto;
 }
 
 .nav-div-left {
@@ -188,6 +188,7 @@ body{
     margin: 10px;
     display: inline-block;
     text-align: left;
+    z-index: 100;
 }
 
 .img-div-3{
@@ -204,7 +205,6 @@ body{
     height: 202px;
     background-size: cover;
     background-position: center;
-    max-height: 275px;
     border-radius: 5px 5px 0 0;
 }
 
@@ -231,11 +231,11 @@ body{
     text-align: center;
     margin: 10px auto;
 }
+
 #btn{
     width: 100px;
     height: 40px;
 }
-
 
 #footer {
     text-align: center;
@@ -302,13 +302,16 @@ body{
 
 @media only screen and (max-width: 440px){
     /* section 1 */
+    .section-1 {
+        padding: 70px 0;
+    }
     .section-1-div input {
         width: 230px;
     }
     #section-1-welcome{
         width: 276px;
         height: 148px;
-        top: 238px;
+        top: 208px;
     }
 
     .section-1-title,

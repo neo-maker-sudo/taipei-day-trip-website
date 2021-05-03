@@ -58,8 +58,11 @@
             <p class="signup-p">還沒有帳戶？點此登入</p>
         </div>
     </div>
-    <script src="{{ url_for('static', filename='js/fetch_attraction.js') }}"></script>
     <script src="{{ url_for('static', filename='js/signMethod.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/booking.js') }}" ></script>
+    <script src="{{ url_for('static', filename='js/fetch_attraction.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/attraction_detail.js') }}"></script>
+    <script>
+        window.port = `http://127.0.0.1:3000`
+    </script>
 </body>
 </html>

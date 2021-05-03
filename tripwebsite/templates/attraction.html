@@ -1,0 +1,51 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div id="attraction-section-1">
+    <div class="attraction-section-main">
+        <span class="attraction-prev-span"></span>
+        <span class="attraction-next-span"></span>
+        <div class="attraction-section-topDiv">
+            <!-- dynamic data -->
+        </div>
+        <div class="controls-visible">
+            <!-- dynamic data -->
+        </div>
+    </div>
+    <div id="attraction-section-info">
+        <h3 id="attraction-name"></h3>
+        <div class="section-info-topDiv">
+            <p id="attraction-category"></p> 
+            <p>at</p>
+            <p id="attraction-mrt"></p>
+        </div>
+        <div id="attraction-section-div">
+            <h3>訂購導覽行程</h3>
+            <p>以此景點為中心的一日行程，帶您探索城市角落故事</p>
+            <div>
+                選擇日期 : <input type="date" id="attraction-section-input" />
+            </div>
+            <div id="attraction-section-date">
+                選擇時間 : 
+                <div id="attraction-section-morning" style="background: rgb(68, 136, 153);"></div>
+                <label>上半天</label>
+                <div id="attraction-section-afternoon" style="background: white;"></div>
+                <label>下半天</label>
+            </div>
+            <div style="display: flex;">
+                導覽費用 : 新台幣<p id="attraction-price" style="margin: 0;">2000</p>元
+            </div>
+            <button type="submit" id="attraction-section-button">開始預訂行程</button>
+        </div>
+    </div>
+</div>
+<hr class="attraction-hr" />
+<div id="attraction-section-2">
+    <p id="attraction-description"></p>
+    <h3>景點地址 : </h3>
+    <p id="attraction-address"></p>
+    <h3>交通方式 : </h3>
+    <p id="attraction-transport"></p>
+</div>
+{% endblock content %}
+
