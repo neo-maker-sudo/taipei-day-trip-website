@@ -49,12 +49,12 @@ class attraction {
             attrImg[i].setAttribute('src', `${image}`)
         })
         allLabel[index].style.backgroundColor = "black"
-        attrName.textContent = items.name
-        description.textContent = items.description
-        address.textContent = items.address
-        transport.textContent = items.transport
+        attrName.textContent = items.name ? items.name : "無"
+        description.textContent = items.description ? items.description : "無"
+        address.textContent = items.address ? items.address : "無"
+        transport.textContent = items.transport ? items.transport : "無"
         category.textContent = items.category
-        mrt.textContent = items.mrt
+        mrt.textContent = items.mrt ? items.mrt : "無"
     }
 
 
