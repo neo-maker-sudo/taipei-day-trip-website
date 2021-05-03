@@ -189,6 +189,7 @@ body{
     display: inline-block;
     text-align: left;
     z-index: 100;
+    cursor: pointer;
 }
 
 .img-div-3{
