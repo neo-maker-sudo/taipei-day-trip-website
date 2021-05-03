@@ -14,6 +14,7 @@ body{
 .navbar-brand{
     text-decoration: none;
     color: #448899;
+    font-size: 25px;
 }
 
 .navbar-brand-2{
@@ -59,6 +60,7 @@ body{
     display: flex;
     justify-content: space-between;
     margin: 10px auto 0 auto;
+    align-items: center;
 }
 
 .nav-div-left {
@@ -126,6 +128,7 @@ body{
     border: none;
     padding: 0;
     border-radius: 5px 0 0 5px;
+    padding-left:1em;
 }
 
 #section-1-welcome{
@@ -135,10 +138,6 @@ body{
     height: 320px;
     right: 190px;
     z-index: 0;
-}
-
-.section-1-div input::-webkit-input-placeholder{
-    padding-left:1em;
 }
 
 .section-1-searchDiv{

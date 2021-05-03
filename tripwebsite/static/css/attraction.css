@@ -47,6 +47,10 @@
     margin-left: 15%;
 }
 
+#attraction-description{
+    line-height: 30px;
+}
+
 #attraction-description,
 #attraction-address,
 #attraction-transport{
@@ -91,7 +95,7 @@
 .attraction-hr {
     width: 1200px;
     border: 1px solid #E8E8E8;
-    margin: 60px auto;
+    margin: 40px auto;
 }
 
 .controls-visible {

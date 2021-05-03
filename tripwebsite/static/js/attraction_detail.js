@@ -1,5 +1,4 @@
 // attraction page 
-// booking-section-div
 const attrBtn = document.getElementById('attraction-section-button');
 const morning = document.getElementById('attraction-section-morning');
 const afternoon = document.getElementById('attraction-section-afternoon');
@@ -13,8 +12,6 @@ const attrImg = document.getElementsByClassName('attraction-section-img');
 const topDiv = document.querySelector('.attraction-section-topDiv');
 const allLabel = document.getElementsByClassName('control-1');
 
-
-//
 const attrName = document.getElementById('attraction-name');
 const description = document.getElementById('attraction-description');
 const address = document.getElementById('attraction-address');
@@ -156,8 +153,8 @@ class attraction {
 
 document.addEventListener('DOMContentLoaded', async()=>{
     const attr = new attraction;
-
-    if(path != "/"){
+    var re = "\/attraction\/[0-9]+"
+    if(path.match(re)){
         await attr.fetchDetialData()
 
         // 前後箭頭
