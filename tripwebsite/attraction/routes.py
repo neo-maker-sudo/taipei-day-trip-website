@@ -1,7 +1,7 @@
 from flask import Blueprint,request, jsonify
-from tripWebsite import db
-from tripWebsite.ma import tripSchema
-from tripWebsite.models import Attraction
+from tripwebsite import db
+from tripwebsite.ma import tripSchema
+from tripwebsite.models import Attraction
 import json
 
 

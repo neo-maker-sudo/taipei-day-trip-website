@@ -1,4 +1,4 @@
-from tripWebsite import db
+from tripwebsite import db
 from datetime import datetime
 import math
 

@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify, session, redirect, url_for
-from tripWebsite.models import User
-from tripWebsite import db
+from tripwebsite.models import User
+from tripwebsite import db
 
 users = Blueprint('users', __name__)
 

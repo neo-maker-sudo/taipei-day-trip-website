@@ -1,7 +1,7 @@
 from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
-from tripWebsite.config import Config
+from tripwebsite.config import Config
 
 db = SQLAlchemy()
 ma = Marshmallow()
@@ -27,8 +27,8 @@ def create_app(config_class=Config):
     def thankyou():
         return render_template("thankyou.html")
 
-    from tripWebsite.attraction.routes import attrs
-    from tripWebsite.user.routes import users
+    from tripwebsite.attraction.routes import attrs
+    from tripwebsite.user.routes import users
 
     app.register_blueprint(attrs)
     app.register_blueprint(users)

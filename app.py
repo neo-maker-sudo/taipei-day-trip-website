@@ -1,4 +1,4 @@
-from tripWebsite import create_app
+from tripwebsite import create_app
 
 app = create_app()
 

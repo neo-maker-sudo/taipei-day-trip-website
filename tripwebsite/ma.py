@@ -1,4 +1,4 @@
-from tripWebsite import ma
+from tripwebsite import ma
 
 class TripSchema(ma.Schema):
 	class Meta:
