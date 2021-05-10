@@ -1,0 +1,160 @@
+/* section 1 */
+.booking-section-1-title{
+    max-width: 980px;
+    margin: 10px 20px 20px 20px;
+    font-size: 19px;
+}
+.booking-section-1-imgDiv{
+    width: 266px;
+    height: 200px;
+    margin-right: 11px;
+}
+.booking-section-1-info{
+    margin-left: 11px;
+    max-width: 700px;
+}
+.booking-section-1-info div {
+    display: flex;
+    align-items: center;
+    height: 35px;
+}
+#booking-section-1-icon{
+    background-image: url('../icon_delete.png');
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    cursor: pointer;
+}
+.section-1-infoTitle{
+    color: #448899;
+    font-size: 16px;
+    font-weight: bolder;
+}
+.booking-section-1-img {
+    max-width: 100%;
+}
+.booking-section-1-div{
+    display: flex;
+    margin: 10px 20px 35px 17px;
+    position: relative;
+}
+
+/* section 2 */
+.section-2-title {
+    font-size: 19px;
+}
+.section-2-alarm{
+    font-size: 16px;
+}
+
+/* section 4 */
+.booking-section-4{
+    text-align: end;
+}
+#booking-section-4-btn{
+    margin-bottom: 20px;
+    background: #448899;
+    border-radius: 5px;
+    padding: 10px 20px;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+.booking-section-4 h3 {
+    color: #666666;
+    line-height: 13px;
+}
+
+/* hr */
+.booking-hr{
+    width: 1200px;
+    border: 1px solid #E8E8E8;
+}
+
+/* section together */
+.booking-section-1-title,
+.booking-section-2 h3,
+.booking-section-3 h3 {
+    color: #666666;
+    line-height: 16px;
+}
+.booking-section-1,
+.booking-section-2,
+.booking-section-3,
+.booking-section-4{
+    max-width: 980px;
+    margin: 0 auto;
+}
+.booking-section-2-div,
+.booking-section-3-div,
+.booking-section-4-div{
+    margin: 30px 10px;
+}
+.booking-section-2 input,
+.booking-section-3 input {
+    width: 190px;
+    height: 38px;
+    margin: 10px 0;
+    border-radius: 5px;
+    padding: 0 0.5rem;
+    border: 1px solid #c7c7c7;
+    box-sizing: border-box;
+}
+
+/* input validator */
+input.valid{
+    border:2px solid green;
+}
+input.invalid{
+    border:2px solid red;
+}
+
+#logintosignup,
+#signuptologin{
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 1200px) {
+    .booking-section-1,
+    .booking-section-2,
+    .booking-section-3,
+    .booking-section-4 {
+        width: 90%;
+    }
+    .booking-section-1-div,
+    .booking-hr {
+        width: 90%;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .booking-section-1-imgDiv{
+        width: 340px;
+        height: 256px;
+    }
+    .booking-section-1-div{
+        display: block;
+    }
+    #booking-section-1-icon{
+        top: 100%;
+    }
+}
+
+@media only screen and (max-width: 420px) {
+    .section-1-title {
+        margin: 10px 12px 0 12px;
+    }
+    .booking-section-1-div {
+        width: 90%;
+    }
+    .booking-section-1-imgDiv {
+        height: 200px;
+        max-width: 100%;
+    }
+    .booking-section-1-img{
+        height: 200px;
+        width: 100%;
+    }
+}

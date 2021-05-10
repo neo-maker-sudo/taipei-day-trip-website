@@ -6,22 +6,20 @@ body{
     padding: 0;
 }
 
+/* header */
 .header{
     position: relative;
     height: 54px;
 }
-
 .navbar-brand{
     text-decoration: none;
     color: #448899;
     font-size: 25px;
 }
-
 .navbar-brand-2{
     text-decoration: none;
     color: #666666;
 }
-
 .modal {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
@@ -36,7 +34,6 @@ body{
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
     text-align: center;
 }
-
 .close {
     color: #aaaaaa;
     float: right;
@@ -45,14 +42,12 @@ body{
     position: absolute;
     right: 15px;
 }
-
 .close:hover,
 .close:focus {
     color: #000;
     text-decoration: none;
     cursor: pointer;
 }
-
 .nav {
     list-style: none;
     font-weight: bold;
@@ -62,7 +57,6 @@ body{
     margin: 10px auto 0 auto;
     align-items: center;
 }
-
 .nav-div-left {
     position: static;
     left: 0px;
@@ -72,27 +66,24 @@ body{
     height: 34px;
     width: 150px;
 }
-
 .nav-div-right {
     display: inline-flex;
     position: static;
     right: 0px;
     margin: 10px 0;
 }
-
 .nav-div-right li {
     color: #666666;
 }
-
 .nav li {
-    margin: 0 10px;
+    margin: 0 8px;
 }
 
+/* section 1 */
 .section-1 {
     background: linear-gradient(135deg, #AADDEE 0%, #66AABB 100%);
     padding: 85px 0;
 }
-
 .section-1-title{
     height: 41px;
     font-size: 28px;
@@ -100,18 +91,15 @@ body{
     width: 320px;
     margin: 0;
 }
-
 .section-1-content{
     height: 22px;
     font-size: 16px;
     line-height: 13px;
     width: 320px;
 }
-
 .section-1-searchBox{
     display: flex;
 }
-
 .section-1-div {
     max-width: 1200px;
     margin-left: auto;
@@ -121,7 +109,6 @@ body{
     position: relative;
     z-index: 1;
 }
-
 .section-1-div input {
     width: 400px;
     height: 46px;
@@ -130,7 +117,6 @@ body{
     border-radius: 5px 0 0 5px;
     padding-left:1em;
 }
-
 #section-1-welcome{
     position: absolute;
     top: 66px;
@@ -139,19 +125,16 @@ body{
     right: 190px;
     z-index: 0;
 }
-
 .section-1-searchDiv{
     width: 60px;
     height: 46px;
     position: relative;
 }
-
 #section-1-mag{
     position: absolute;
     left: 15px;
     top: 7px;
 }
-
 #mag-btn {
     width: 60px;
     height: 46px;
@@ -161,11 +144,9 @@ body{
     text-align: center;
     cursor: pointer;
 }
-
 .mag{
     font-size: 20px;
 }
-
 .section-1-img{
     background-image: url('../image-1.jpg');
     background-size: 100% 100%;
@@ -173,7 +154,7 @@ body{
     width: 500px;
 }
 
-
+/* section 2 */
 #section-2 {
     width: 1200px;
     margin-left: auto;
@@ -181,7 +162,6 @@ body{
     text-align: center;
     margin-top: 15px;
 }
-
 .img-div {
     width: 270px;
     margin: 10px;
@@ -190,24 +170,20 @@ body{
     z-index: 100;
     cursor: pointer;
 }
-
 .img-div-3{
     border: 1px #E8E8E8 solid;
     border-radius: 0 0 5px 5px;
 }
-
 .img-div-4{
     display: flex;
     justify-content: space-between;
 }
-
 .img {
     height: 202px;
     background-size: cover;
     background-position: center;
     border-radius: 5px 5px 0 0;
 }
-
 .img-div h5,
 .img-div h6 {
     margin: 0;
@@ -215,28 +191,17 @@ body{
     color: #757575;
     font-size: 16px;
 }
-
 .img-div p{
     margin: 0;
     padding: 5px;
     color: #757575;
     font-size: 15px;
 }
-
 .pCategory{
     float: right;
 }
 
-#btn-div {
-    text-align: center;
-    margin: 10px auto;
-}
-
-#btn{
-    width: 100px;
-    height: 40px;
-}
-
+/* footer */
 #footer {
     text-align: center;
     background-color: darkgray;
@@ -311,7 +276,7 @@ body{
     #section-1-welcome{
         width: 276px;
         height: 148px;
-        top: 208px;
+        top: 218px;
     }
 
     .section-1-title,

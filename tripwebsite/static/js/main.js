@@ -1,18 +1,24 @@
-const section_2 = document.getElementById('section-2');
-const btn = document.getElementById('btn');
+// header & section 1
 const login = document.getElementById('login');
 const signup = document.getElementById('signup');
-const modal_1 = document.getElementById('modal-login');
-const modal_2 = document.getElementById('modal-signup');
-const span_1 = document.getElementsByClassName("close")[0];
-const span_2 = document.getElementsByClassName("close")[1];
+const logout = document.getElementById('logout');
+const modal_login = document.getElementById('modal-login');
+const modal_signup = document.getElementById('modal-signup');
+const mainSwitch_1 = document.getElementsByClassName("close")[0];
+const mainSwitch_2 = document.getElementsByClassName("close")[1];
 const search = document.querySelector('.section-1-searchBox');
 
+// section 2
+const section_2 = document.getElementById('section-2');
 const allImgDiv = document.getElementsByClassName('img-div');
+
+// attraction info
 const placeDiv = document.getElementsByClassName('img');
 const placeName = document.getElementsByClassName('pName');
 const placeCategory = document.getElementsByClassName('pMrt');
 const placeMrt = document.getElementsByClassName('pCategory');
+
+// footer
 const footer = document.getElementById('footer');
 
 var page = 0;
@@ -22,27 +28,49 @@ let email;
 let password;
 let arrInfo = [];
 var post_flag = false;
+let path = window.location.pathname;
 
-class UI {
+class Main {
+
+    checkStatus(){
+        const url = `${window.port}/api/user`
+        fetch(url)
+        .then(async(response)=>{
+            return await response.json()
+        })
+        .then((result)=>{
+            if(result.message === null){
+                login.style.display = 'block';
+                signup.style.display = 'block';
+                logout.style.display = 'none';
+            }
+            else{
+                login.style.display = 'none';
+                signup.style.display = 'none';
+                logout.style.display = 'block';
+            }
+        })
+    }
+
     displayLogin(){
         login.onclick =()=>{
-            modal_1.style.display = "block";
+            modal_login.style.display = "block";
             this.close()
         }
     }
     displaySignup(){
         signup.onclick = ()=>{
-            modal_2.style.display = "block"
+            modal_signup.style.display = "block"
             this.close()
         }
     }
 
     close(){
-        span_1.onclick = ()=>{
-            modal_1.style.display = "none"
+        mainSwitch_1.onclick = ()=>{
+            modal_login.style.display = "none"
         }
-        span_2.onclick = ()=>{
-            modal_2.style.display = "none"
+        mainSwitch_2.onclick = ()=>{
+            modal_signup.style.display = "none"
         }
     }
 
@@ -167,7 +195,6 @@ class UI {
                 const result = await response.json()
                 var nextPage = result.nextPage
                 const data = await result.data
-                // 不存在的keyword
                 if(result.nextPage == null){
                     this.removeAttraction()
                     this.noResult()
@@ -247,7 +274,6 @@ class UI {
 
     intoDetail(){
         for(var i=0;i<allImgDiv.length;i++){
-            allImgDiv[i].num = i
             allImgDiv[i].onclick = function(){
                 location.href = `${window.port}` + location.pathname + `attraction/${this.id}`            
             }
@@ -256,17 +282,17 @@ class UI {
 }
 
 document.addEventListener('DOMContentLoaded',async()=>{
-    const ui = new UI;
-    ui.displayLogin()
-    ui.displaySignup()
-    
+    const main = new Main;
+    main.displayLogin()
+    main.displaySignup()
+    main.checkStatus()
     if(path == "/"){
-        await ui.fetchData(page)
-        await ui.submitKeyword(page)
-        ui.intoDetail()
+        await main.fetchData(page)
+        await main.submitKeyword(page)
+        main.intoDetail()
         const searchBtn = document.getElementById('mag-btn');
         searchBtn.onclick = ()=>{
-            ui.submitKeyword(page)
+            main.submitKeyword(page)
         }
     }  
 })
