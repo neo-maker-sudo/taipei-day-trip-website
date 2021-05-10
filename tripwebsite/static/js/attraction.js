@@ -1,4 +1,4 @@
-// attraction page 
+// deliver Button api 
 const attrBtn = document.getElementById('attraction-section-button');
 const morning = document.getElementById('attraction-section-morning');
 const afternoon = document.getElementById('attraction-section-afternoon');
@@ -12,6 +12,7 @@ const attrImg = document.getElementsByClassName('attraction-section-img');
 const topDiv = document.querySelector('.attraction-section-topDiv');
 const allLabel = document.getElementsByClassName('control-1');
 
+// attraction info
 const attrName = document.getElementById('attraction-name');
 const description = document.getElementById('attraction-description');
 const address = document.getElementById('attraction-address');
@@ -19,13 +20,9 @@ const transport = document.getElementById('attraction-transport')
 const category = document.getElementById('attraction-category');
 const mrt = document.getElementById('attraction-mrt');
 
-
-var index = 0;
-let path = window.location.pathname
-
 class attraction {
 
-    fetchDetialData(){
+    fetchDetailData(){
         let id = path.split('/').pop()
         const url = `${window.port}/api/attraction/${id}`
         fetch(url)
@@ -135,27 +132,96 @@ class attraction {
             if(morningCheck == "rgb(68, 136, 153)" && afternoonCheck == "white"){
                 const attractionId = path.split('/').pop()
                 const price = document.getElementById('attraction-price').innerHTML
-                console.log(attractionId, date, price, 'morning')
+                const url = `${window.port}/api/booking`
+                fetch(url,{
+                    method: 'POST',
+                    body : JSON.stringify({
+                        attractionId: attractionId,
+                        date: date,
+                        time: 'morning',
+                        price: price
+                    }),
+                    headers : {
+                        "Content-Type": "application/json"
+                    }
+                })
+                .then( async (response)=>{
+                    return await response.json()
+                })
+                .then((result)=>{
+                    if(result.ok === true){
+                        alert('預定行程成功')
+                    }
+                    else if(result.message === 'same user booking double time'){
+                        alert('行程已預訂，請勿重複預定')
+                    }
+                    else if(result.message === 'attraction id isn\'t exist'){
+                        alert('無此行程，請確認頁面是否有問題，或F5重新整理再操作')
+                    }
+                    else if(result.message === 'establish booking error'){
+                        alert('建立預定行程錯誤。')
+                    }
+                    else if(result.message === 'you are not allow to do this action'){
+                        alert('請先登入再預定行程喔')
+                    }
+                    else if(result.message === 'server error'){
+                        alert('伺服器錯誤，請聯繫相關網站人員。')
+                    }
+                })
             }
             else if(morningCheck == "white" && afternoonCheck == "rgb(68, 136, 153)"){
                 const attractionId = path.split('/').pop()
                 const price = document.getElementById('attraction-price').innerHTML
-                console.log(attractionId, date, price, 'afternoon')
+                const url = `${window.port}/api/booking`
+                fetch(url,{
+                    method: 'POST',
+                    body : JSON.stringify({
+                        attractionId: attractionId,
+                        date: date,
+                        time: 'afternoon',
+                        price: price
+                    }),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then( async (response)=>{
+                    const data = await response.json()
+                    return data
+                })
+                .then((result)=>{
+                    if(result.ok === true){
+                        alert('預定行程成功')
+                    }
+                    else if(result.message === 'same user booking double time'){
+                        alert('行程已預訂，請勿重複預定')
+                    }
+                    else if(result.message === 'attraction id isn\'t exist'){
+                        alert('無此行程，請確認頁面是否有問題，或F5重新整理再操作')
+                    }
+                    else if(result.message === 'establish booking error'){
+                        alert('建立預定行程錯誤。')
+                    }
+                    else if(result.message === 'you are not allow to do this action'){
+                        alert('請先登入再預定行程喔')
+                    }
+                    else if(result.message === 'server error'){
+                        alert('伺服器錯誤，請聯繫相關網站人員。')
+                    } 
+                })
             }
             else {
                 alert('請勾選上半天或是下半天的選項')
             }
         }
     }
-
-
 }
 
 document.addEventListener('DOMContentLoaded', async()=>{
     const attr = new attraction;
-    var re = "\/attraction\/[0-9]+"
+    let re = "\/attraction\/[0-9]+"
     if(path.match(re)){
-        await attr.fetchDetialData()
+        await attr.fetchDetailData()
 
         // 前後箭頭
         attr.next()

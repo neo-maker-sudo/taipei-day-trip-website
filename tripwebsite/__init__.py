@@ -1,16 +1,14 @@
 from flask import Flask, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
-from tripwebsite.config import config
+from tripWebsite.config import Config
 
 db = SQLAlchemy()
 ma = Marshmallow()
 
-
-
-def create_app(config_class):
+def create_app(config_class=Config):
     app = Flask(__name__)
-    app.config.from_object(config[config_class])
+    app.config.from_object(Config)
 
     db.init_app(app)
     ma.init_app(app)
@@ -29,8 +27,10 @@ def create_app(config_class):
     def thankyou():
         return render_template("thankyou.html")
 
-    from tripwebsite.attraction.routes import attrs
+    from tripWebsite.attraction.routes import attrs
+    from tripWebsite.user.routes import users
 
     app.register_blueprint(attrs)
+    app.register_blueprint(users)
 
     return app
