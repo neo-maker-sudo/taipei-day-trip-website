@@ -30,7 +30,7 @@ switchToLogin.onclick = ()=>{
 
 loginBtn.onclick = ()=>{
     if(emailInputLogin.checkValidity() && passwordInputLogin.checkValidity()){
-        url = 'http://127.0.0.1:3000/api/user';
+        url = `${window.port}/api/user`;
         fetch(url,{
             method : 'PATCH',
             body : JSON.stringify({
@@ -50,16 +50,26 @@ loginBtn.onclick = ()=>{
                 window.location.reload()
             }
             else if(result.message === 'password wrong'){
-                if(!document.querySelector('.login-error')){
+                if(!document.querySelector('.login-error') ){
                     const error = document.createElement('p');
                     const errorLogin = loginBtn.parentNode.insertBefore(error, loginP);
                     errorLogin.textContent = '電子郵件或密碼錯誤';
                     errorLogin.classList.add('login-error');
                 }
-
+                else if(document.querySelector('.login-error').textContent === '使用者不存在'){
+                    document.querySelector('.login-error').textContent = '電子郵件或密碼錯誤'
+                }
             }
             else if(result.message === 'none exist user'){
-                alert('使用者不存在')
+                if(!document.querySelector('.login-error')){
+                    const error = document.createElement('p');
+                    const errorLogin = loginBtn.parentNode.insertBefore(error, loginP);
+                    errorLogin.textContent = '使用者不存在';
+                    errorLogin.classList.add('login-error');
+                }
+                else if(document.querySelector('.login-error').textContent === '電子郵件或密碼錯誤'){
+                    document.querySelector('.login-error').textContent = '使用者不存在';
+                }
             }
         })
         .catch((err)=>{
@@ -70,7 +80,7 @@ loginBtn.onclick = ()=>{
 
 signupBtn.onclick = ()=>{
     if(usernameInputSignup.checkValidity() && emailInputSignup.checkValidity() && passwordInputSignup.checkValidity()){
-        url = 'http://127.0.0.1:3000/api/user';
+        url = `${window.port}/api/user`;
         fetch(url,{
             method : 'POST',
             body : JSON.stringify({
@@ -108,7 +118,7 @@ signupBtn.onclick = ()=>{
 }
 
 logout.onclick = ()=>{
-    url = 'http://127.0.0.1:3000/api/user';
+    url = `${window.port}/api/user`;
     fetch(url,{
         method: 'DELETE',
     })
