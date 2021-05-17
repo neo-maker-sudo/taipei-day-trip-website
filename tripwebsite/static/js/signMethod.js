@@ -128,7 +128,7 @@ logout.onclick = ()=>{
     })
     .then((reuslt)=>{
         if(reuslt.ok === true){
-            window.location.reload()
+            location.href = `${window.port}` + "/" 
         }
     })
     .catch((err)=>{

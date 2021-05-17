@@ -76,6 +76,9 @@
 .section-info-topDiv p {
     margin: 0 3px 16px 3px;    
 }
+.attraction-at{
+    font-size: 20px;
+}
 #attraction-section-info {
     height: 406px;
     margin: 0 0 0 15px;
@@ -101,7 +104,8 @@
     height: 36px;
     border: none;
     color:white;
-    margin-top: 15px;
+    margin: 15px 0;
+    cursor: pointer;
 }
 #attraction-section-date{
     margin: 16px 0;
@@ -142,6 +146,10 @@
     background-color: #E8E8E8;
     border-radius: 5px;
     padding: 15px 20px 0 20px;
+}
+.attr-error{
+    color: red;
+    margin-left: 5px;
 }
 
 /* hr */

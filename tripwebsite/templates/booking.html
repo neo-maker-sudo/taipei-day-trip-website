@@ -3,34 +3,11 @@
 {% block content %}
 
 <div class="booking-section-1">
-    <h2 class="booking-section-1-title">您好，Neo，帶預定的行程如下</h2>
+    <h2 class="booking-section-1-title">您好，<span id="booking-section-1-titleSpan"></span>，帶預定的行程如下</h2>
     <!-- dynamic data -->
-    <div class="booking-section-1-div">
-        <div class="booking-section-1-imgDiv">
-            <img src="http://www.travel.taipei/d_upload_ttn/sceneadmin/pic/11000963.jpg" class="booking-section-1-img"/>
-        </div>
-        <div class="booking-section-1-info">
-            <div class="section-1-infoTitle">
-                台北一日遊 : <p id="booking-name">平安鐘</p>
-            </div>
-            <div>
-                日期 : <p id="booking-date">2021-04-23</p>
-            </div>
-            <div>
-                時間 : <p id="booking-time">早上9點到下午4點</p>
-            </div>
-            <div>
-                費用 : <p id="booking-price">新台幣2000元</p>
-            </div>
-            <div>
-                地點 : <p id="booking-address">台北市 大安區忠孝東路4段</p>
-            </div>
-        </div>   
-        <span id="booking-section-1-icon"></span>   
-    </div>
 </div>
 <hr class="booking-hr">
-<form onsubmit="return false">
+<form onsubmit="return false" id="booking-section-2-form">
     <div class="booking-section-2">
         <div class="booking-section-2-div">
             <h3 class="section-2-title">您的聯絡資料</h3>
@@ -44,7 +21,8 @@
             </div>
             <div id="booking-section-2-phoneDiv">
                 <label for="booking-section-2-phone" class="booking-section-2-label">手機號碼 : </label>
-                <input type="tel" id="booking-section-2-phone" oninput="value=value.replace(/[^\d]/g,'')" maxlength="10" pattern="\d{10}" required>
+                <input type="tel" id="booking-section-2-phone" oninput="value=value.replace(/[^\d]/g,'')" maxlength="10"
+                    pattern="\d{10}" required>
             </div>
             <h3 class="section-2-alarm">請保持手機暢通，準時到達，導覽人員將用手機與您聯繫，務必留下正確的聯絡方式。</h3>
         </div>
@@ -55,23 +33,40 @@
             <h3>信用卡付款資訊</h3>
             <div>
                 <label>卡片號碼 : </label>
-                <input type="text" oninput="value=value.replace(/[^\d]/g,'')" placeholder="**** **** **** ****" maxlength="16" pattern="\d{16}" required>
+                <input type="text" oninput="value=value.replace(/[^\d]/g,'')" placeholder="**** **** **** ****"
+                    maxlength="16" pattern="\d{16}" required>
             </div>
             <div>
                 <label>過期時間 : </label>
-                <input type="text" placeholder="MM/YY" oninput="value=value.replace(/[^\d]/g,'')" maxlength="4" pattern="\d{4}" required>
+                <input type="text" placeholder="MM/YY" oninput="value=value.replace(/[^\d]/g,'')" maxlength="4"
+                    pattern="\d{4}" required>
             </div>
             <div>
                 <label>驗證密碼 : </label>
-                <input type="text" placeholder="CVV" oninput="value=value.replace(/[^\d]/g,'')" maxlength="3" pattern="\d{3}" required>
+                <input type="text" placeholder="CVV" oninput="value=value.replace(/[^\d]/g,'')" maxlength="3"
+                    pattern="\d{3}" required>
             </div>
         </div>
     </div>
     <hr class="booking-hr">
     <div class="booking-section-4">
         <div class="booking-section-4-div">
-            <h3>總價 : 新台幣2000元</h3>
+            <h3>總價 : 新台幣<span id="booking-total-price"></span>元</h3>
             <button type="submit" id="booking-section-4-btn">確認訂購並付款</button>
+        </div>
+    </div>
+</form>
+
+<form onsubmit="return false">
+    <div id="modal-delete" class="modal">
+        <div class="delete-div">
+            <div class="delete-topDiv"></div>
+            <span class="delete-close">&times;</span>
+            <h3 class="delete-h3">你真的要刪除預訂行程嗎 ?? </h3>
+            <div class="delete-BtnDiv">
+                <button type="submit" class="delete-cancel">取消</button>
+                <button type="submit" class="delete-button">是</button>
+            </div>
         </div>
     </div>
 </form>
