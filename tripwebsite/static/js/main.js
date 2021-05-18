@@ -7,6 +7,7 @@ const modal_signup = document.getElementById('modal-signup');
 const mainSwitch_1 = document.getElementsByClassName("close")[0];
 const mainSwitch_2 = document.getElementsByClassName("close")[1];
 const search = document.querySelector('.section-1-searchBox');
+const bookingBtn = document.querySelector('.navbar-brand-2');
 
 // section 2
 const section_2 = document.getElementById('section-2');
@@ -48,6 +49,11 @@ class Main {
                 login.style.display = 'none';
                 signup.style.display = 'none';
                 logout.style.display = 'block';
+                if(document.getElementById('booking-section-1-titleSpan')){
+                    document.getElementById('booking-section-1-titleSpan').textContent = result.data.name
+                    document.getElementById('booking-section-2-name').value = result.data.name
+                    document.getElementById('booking-section-2-email').value = result.data.email
+                } 
             }
         })
     }
@@ -279,6 +285,31 @@ class Main {
             }
         }
     }
+
+    displayBkPage(){
+        bookingBtn.onclick = ()=>{
+            const url = `${window.port}/api/booking`
+            fetch(url)
+            .then(async(response)=>{
+                return await response.json()
+            })
+            .then((result)=>{
+                if(result.message === 'you are not allow to do this action'){
+                    modal_login.style.display = "block";
+                    this.close()
+                }
+                else {
+                    console.log(location.href)
+                    if(location.href == `${window.port}/booking` ){
+                        window.location.reload()
+                    }
+                    else {
+                        location.href = `${window.port}` +  `/booking`
+                    }
+                }
+            })
+        }
+    }
 }
 
 document.addEventListener('DOMContentLoaded',async()=>{
@@ -286,6 +317,7 @@ document.addEventListener('DOMContentLoaded',async()=>{
     main.displayLogin()
     main.displaySignup()
     main.checkStatus()
+    main.displayBkPage()
     if(path == "/"){
         await main.fetchData(page)
         await main.submitKeyword(page)

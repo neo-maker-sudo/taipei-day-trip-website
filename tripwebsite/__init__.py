@@ -9,7 +9,6 @@ ma = Marshmallow()
 def create_app(config_class=Config):
     app = Flask(__name__)
     app.config.from_object(Config)
-
     db.init_app(app)
     ma.init_app(app)
 
@@ -29,8 +28,10 @@ def create_app(config_class=Config):
 
     from tripwebsite.attraction.routes import attrs
     from tripwebsite.user.routes import users
+    from tripwebsite.booking.routes import bookings
 
     app.register_blueprint(attrs)
     app.register_blueprint(users)
+    app.register_blueprint(bookings)
 
     return app

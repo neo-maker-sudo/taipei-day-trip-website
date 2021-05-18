@@ -124,8 +124,16 @@ class attraction {
         attrBtn.onclick = function(){
             const date = document.getElementById('attraction-section-input').value
             if(date == ''){
-                alert('請選擇出發日期')
-                return 
+                if(!document.querySelector('.attr-error')){
+                    const error = document.createElement('span');
+                    const errorAttr = document.getElementById('attraction-section-div').appendChild(error)
+                    errorAttr.textContent = '請選擇出發日期';
+                    errorAttr.classList.add('attr-error');
+                }
+                else if(document.querySelector('.attr-error').textContent !== '請選擇出發日期'){
+                    document.querySelector('.attr-error').textContent == '請選擇出發日期'
+                }
+                return;
             }
             const morningCheck = morning.style.background
             const afternoonCheck = afternoon.style.background
@@ -150,22 +158,61 @@ class attraction {
                 })
                 .then((result)=>{
                     if(result.ok === true){
-                        alert('預定行程成功')
+                        location.href = `${window.port}` + `/booking`
                     }
                     else if(result.message === 'same user booking double time'){
-                        alert('行程已預訂，請勿重複預定')
+                        if(!document.querySelector('.attr-error')){
+                            const error = document.createElement('span');
+                            const errorAttr = document.getElementById('attraction-section-div').appendChild(error)
+                            errorAttr.textContent = '行程已預訂';
+                            errorAttr.classList.add('attr-error');
+                        }
+                        else if(document.querySelector('.attr-error').textContent !== '行程已預訂'){
+                            document.querySelector('.attr-error').textContent = '行程已預訂'
+                        }
+                        
                     }
                     else if(result.message === 'attraction id isn\'t exist'){
-                        alert('無此行程，請確認頁面是否有問題，或F5重新整理再操作')
+                        if(!document.querySelector('.attr-error')){
+                            const error = document.createElement('span');
+                            const errorAttr = document.getElementById('attraction-section-div').appendChild(error)
+                            errorAttr.textContent = '請F5重整後再行操作';
+                            errorAttr.classList.add('attr-error');
+                        }
+                        else if(document.querySelector('.attr-error').textContent !== '請F5重整後再行操作'){
+                            document.querySelector('.attr-error').textContent = '請F5重整後再行操作';
+                        }
                     }
                     else if(result.message === 'establish booking error'){
-                        alert('建立預定行程錯誤。')
+                        if(!document.querySelector('.attr-error')){
+                            const error = document.createElement('span');
+                            const errorAttr = document.getElementById('attraction-section-div').appendChild(error)
+                            errorAttr.textContent = '建立預定行程錯誤';
+                            errorAttr.classList.add('attr-error');
+                        }
+                        else if(document.querySelector('.attr-error').textContent !== '建立預定行程錯誤'){
+                            document.querySelector('.attr-error').textContent = '建立預定行程錯誤';
+                        }
                     }
                     else if(result.message === 'you are not allow to do this action'){
-                        alert('請先登入再預定行程喔')
+                        modal_login.style.display = "block";
+                        mainSwitch_1.onclick = ()=>{
+                            modal_login.style.display = "none"
+                        }
+                        mainSwitch_2.onclick = ()=>{
+                            modal_signup.style.display = "none"
+                        }
                     }
                     else if(result.message === 'server error'){
-                        alert('伺服器錯誤，請聯繫相關網站人員。')
+                        if(!document.querySelector('.attr-error')){
+                            const error = document.createElement('span');
+                            const errorAttr = document.getElementById('attraction-section-div').appendChild(error)
+                            errorAttr.textContent = '伺服器錯誤，請聯繫相關網站人員';
+                            errorAttr.classList.add('attr-error');
+                        }
+                        else if(document.querySelector('.attr-error').textContent !== '伺服器錯誤，請聯繫相關網站人員'){
+                            document.querySelector('.attr-error').textContent = '伺服器錯誤，請聯繫相關網站人員';
+                        }
                     }
                 })
             }
@@ -191,27 +238,62 @@ class attraction {
                 })
                 .then((result)=>{
                     if(result.ok === true){
-                        alert('預定行程成功')
+                        location.href = `${window.port}` + `/booking`
                     }
                     else if(result.message === 'same user booking double time'){
-                        alert('行程已預訂，請勿重複預定')
+                        if(!document.querySelector('.attr-error')){
+                            const error = document.createElement('span');
+                            const errorAttr = document.getElementById('attraction-section-div').appendChild(error)
+                            errorAttr.textContent = '行程已預訂';
+                            errorAttr.classList.add('attr-error');
+                        }
+                        else if(document.querySelector('.attr-error').textContent !== '行程已預訂'){
+                            document.querySelector('.attr-error').textContent = '行程已預訂'
+                        }
                     }
                     else if(result.message === 'attraction id isn\'t exist'){
-                        alert('無此行程，請確認頁面是否有問題，或F5重新整理再操作')
+                        if(!document.querySelector('.attr-error')){
+                            const error = document.createElement('span');
+                            const errorAttr = document.getElementById('attraction-section-div').appendChild(error)
+                            errorAttr.textContent = '請F5重整後再行操作';
+                            errorAttr.classList.add('attr-error');
+                        }
+                        else if(document.querySelector('.attr-error').textContent !== '請F5重整後再行操作'){
+                            document.querySelector('.attr-error').textContent = '請F5重整後再行操作';
+                        }
                     }
                     else if(result.message === 'establish booking error'){
-                        alert('建立預定行程錯誤。')
+                        if(!document.querySelector('.attr-error')){
+                            const error = document.createElement('span');
+                            const errorAttr = document.getElementById('attraction-section-div').appendChild(error)
+                            errorAttr.textContent = '建立預定行程錯誤';
+                            errorAttr.classList.add('attr-error');
+                        }
+                        else if(document.querySelector('.attr-error').textContent !== '建立預定行程錯誤'){
+                            document.querySelector('.attr-error').textContent = '建立預定行程錯誤';
+                        }
                     }
                     else if(result.message === 'you are not allow to do this action'){
-                        alert('請先登入再預定行程喔')
+                        modal_login.style.display = "block";
+                        mainSwitch_1.onclick = ()=>{
+                            modal_login.style.display = "none"
+                        }
+                        mainSwitch_2.onclick = ()=>{
+                            modal_signup.style.display = "none"
+                        }
                     }
                     else if(result.message === 'server error'){
-                        alert('伺服器錯誤，請聯繫相關網站人員。')
+                        if(!document.querySelector('.attr-error')){
+                            const error = document.createElement('span');
+                            const errorAttr = document.getElementById('attraction-section-div').appendChild(error)
+                            errorAttr.textContent = '伺服器錯誤，請聯繫相關網站人員';
+                            errorAttr.classList.add('attr-error');
+                        }
+                        else if(document.querySelector('.attr-error').textContent !== '伺服器錯誤，請聯繫相關網站人員'){
+                            document.querySelector('.attr-error').textContent = '伺服器錯誤，請聯繫相關網站人員';
+                        }
                     } 
                 })
-            }
-            else {
-                alert('請勾選上半天或是下半天的選項')
             }
         }
     }

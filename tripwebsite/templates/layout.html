@@ -21,9 +21,11 @@
                     <li><a class="navbar-brand" href="{{ url_for('index') }}">台北一日遊</a></li>
                 </div>
                 <div class="nav-div-right">
-                    <li><a class="navbar-brand-2" href="{{ url_for('booking') }}" >預定行程</a></li>
-                    <li id="login">登入</li>
-                    <li id="signup">註冊</li>
+                    <li><a class="navbar-brand-2">預定行程</a></li>
+                    <li class="nav-li-right">
+                        <a id="login">登入/</a>
+                        <a id="signup">註冊</a>
+                    </li>
                     <li id="logout">登出系統</li>
                 </div>
             </nav>
@@ -56,7 +58,8 @@
                 <div class="signup-topDiv"></div>
                 <span class="close">&times;</span>
                 <h3 class="signup-h3">註冊會員帳號</h3>
-                <input type="text" placeholder="輸入姓名" name="email" id="signup-input_1" minlength="2"  maxlength="8" required>
+                <input type="text" placeholder="輸入姓名" name="email" id="signup-input_1" minlength="2" maxlength="8"
+                    required>
                 <input type="email" placeholder="輸入電子信箱" name="password" id="signup-input_2" required>
                 <input type="password" placeholder="輸入密碼" name="password" id="signup-input_3" required>
                 <button type="submit" class="signup-button">註冊新帳戶</button>
@@ -69,7 +72,9 @@
     <script src="{{ url_for('static', filename='js/attraction.js') }}"></script>
     <script src="{{ url_for('static', filename='js/booking.js') }}"></script>
     <script>
-        window.port = 'http://127.0.0.1:3000'
+        window.port = 'http:/18.182.228.61'
+        
     </script>
 </body>
+
 </html>
