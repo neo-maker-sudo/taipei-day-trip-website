@@ -10,8 +10,8 @@
     margin-right: 11px;
 }
 .booking-section-1-info{
-    margin-left: 11px;
     max-width: 700px;
+    margin: 20px 0 0 11px;
 }
 .booking-section-1-info div {
     display: flex;
@@ -40,12 +40,33 @@
     margin: 10px 20px 35px 17px;
     position: relative;
 }
-
 .booking-none-error,
 .booking-none-info{
     margin: 50px 20px;
     font-size: 16px;
     color: #666666;
+}
+
+#booking-name::before{
+    content: "台北一日遊 : "
+}
+#booking-date::before{
+    content: "日期 : "
+}
+#booking-time::before{
+    content: "時間 : "
+}
+#booking-price::before{
+    content: "費用 : "
+}
+#booking-price::after{
+    content: "元"
+}
+#booking-address::before{
+    content: "地點 : ";
+}
+.booking-errorMsg{
+    color: red;
 }
 
 /* section 2 */
@@ -54,6 +75,15 @@
 }
 .section-2-alarm{
     font-size: 16px;
+}
+.booking-section-2 input{
+    width: 190px;
+    height: 38px;
+    margin: 10px 0;
+    border-radius: 5px;
+    padding: 0 0.5rem;
+    border: 1px solid #c7c7c7;
+    box-sizing: border-box;
 }
 
 /* section 4 */
@@ -99,11 +129,10 @@
 .booking-section-4-div{
     margin: 30px 10px;
 }
-.booking-section-2 input,
-.booking-section-3 input {
+.tyfield {
     width: 190px;
     height: 38px;
-    margin: 10px 0;
+    margin: 10px 5px;
     border-radius: 5px;
     padding: 0 0.5rem;
     border: 1px solid #c7c7c7;

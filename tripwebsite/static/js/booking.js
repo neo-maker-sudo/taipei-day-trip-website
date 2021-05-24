@@ -22,6 +22,28 @@ const bksectionForm = document.getElementById('booking-section-2-form');
 const bksectionHr = document.querySelector('.booking-hr');
 const bkTotal = document.getElementById('booking-total-price');
 
+// booking card info
+const bkCardNumber = document.getElementById('booking-section-cardNumber');
+const bkCardExpireDay = document.getElementById('booking-section-expireDay');
+const bkCardCvv = document.getElementById('booking-section-cvv');
+
+var fields = {
+    number: {
+        // css selector
+        element: bkCardNumber,
+        placeholder: '**** **** **** ****'
+    },
+    expirationDate: {
+        // DOM object
+        element: bkCardExpireDay,
+        placeholder: 'MM / YY'
+    },
+    ccv: {
+        element: bkCardCvv,
+        placeholder: '後三碼'
+    }
+}
+
 class Booking {
     fetchBookingData(){
         const url = `${window.port}/api/booking`
@@ -55,31 +77,35 @@ class Booking {
     async displayBooking(item){
         await this.createItem()
 
+        const besection_1_img = document.querySelector('.booking-section-1-img');
+        const bksection_1_mainDiv = document.querySelector('.booking-section-1-div');
         const bksection_1_Info_name = document.getElementById('booking-name');
         const bksection_1_Info_date = document.getElementById('booking-date');
         const bksection_1_Info_time = document.getElementById('booking-time');
         const bksection_1_Info_price = document.getElementById('booking-price');
         const bksection_1_Info_address = document.getElementById('booking-address');
-        const besection_1_img = document.querySelector('.booking-section-1-img');
 
         if(item.time === 'morning'){
             const images = item.attraction.image.split(',')
             besection_1_img.setAttribute('src', `${images[0]}`);
-            bksection_1_Info_name.textContent = '台北一日遊 :' + item.attraction.name;
-            bksection_1_Info_date.textContent = '日期 : '+ item.date;
-            bksection_1_Info_time.textContent = '時間 : 早上9點到下午4點';
-            bksection_1_Info_price.textContent = '費用 : ' + item.price + '元';
-            bksection_1_Info_address.textContent = '地點 : ' + item.attraction.address;
+            bksection_1_mainDiv.setAttribute('id', item.attraction.id)
+
+            bksection_1_Info_name.textContent = item.attraction.name;
+            bksection_1_Info_date.textContent = item.date;
+            bksection_1_Info_time.textContent = '早上9點到下午4點';
+            bksection_1_Info_price.textContent =  item.price;
+            bksection_1_Info_address.textContent = item.attraction.address;
             bkTotal.textContent =   item.price
         }
         else {
             const images = item.attraction.image.split(',')
             besection_1_img.setAttribute('src', `${images[0]}`);
-            bksection_1_Info_name.textContent = '台北一日遊 : ' + item.attraction.name;
-            bksection_1_Info_date.textContent = '日期 : ' + item.date;
-            bksection_1_Info_time.textContent = '時間 : 下午4點到晚上11點';
-            bksection_1_Info_price.textContent = '費用 : ' + item.price;
-            bksection_1_Info_address.textContent = '地點 : ' + item.attraction.address;
+            bksection_1_mainDiv.setAttribute('id', item.attraction.id)
+            bksection_1_Info_name.textContent = item.attraction.name;
+            bksection_1_Info_date.textContent = item.date;
+            bksection_1_Info_time.textContent = '下午2點到晚上9點';
+            bksection_1_Info_price.textContent = item.price;
+            bksection_1_Info_address.textContent = item.attraction.address;
             bkTotal.textContent =   item.price
         }
 
@@ -124,6 +150,7 @@ class Booking {
         bksection_1_info.appendChild(section_1_infoDiv2);
         bksection_1_info.appendChild(section_1_infoDiv3);
         bksection_1_info.appendChild(section_1_infoDiv4);
+
         section_1_infoTitle.appendChild(section_1_p1);
         section_1_infoDiv1.appendChild(section_1_p2);
         section_1_infoDiv2.appendChild(section_1_p3);
@@ -138,12 +165,11 @@ class Booking {
         bksection_1_span.setAttribute('id', 'booking-section-1-icon');
         section_1_infoTitle.classList.add('section-1-infoTitle');
 
-        section_1_p1.setAttribute('id','booking-name');
-        section_1_p2.setAttribute('id','booking-date');
-        section_1_p3.setAttribute('id','booking-time');
-        section_1_p4.setAttribute('id','booking-price');
-        section_1_p5.setAttribute('id','booking-address');
-
+        section_1_p1.setAttribute('id', 'booking-name');
+        section_1_p2.setAttribute('id', 'booking-date');
+        section_1_p3.setAttribute('id', 'booking-time');
+        section_1_p4.setAttribute('id', 'booking-price');
+        section_1_p5.setAttribute('id', 'booking-address');
     }
 
     deleteClose(){
@@ -189,7 +215,67 @@ class Booking {
 
     btnDeliver(){
         bkBtn.onclick = function(){
-            console.log('button click')
+
+            const tappayStatus = TPDirect.card.getTappayFieldsStatus()
+
+            if(tappayStatus.canGetPrime === false){
+                if(!document.querySelector('.booking-errorMsg')){
+                    const error =document.createElement('p');
+                    error.textContent = '請填選完卡號相關欄位';
+                    error.classList.add('booking-errorMsg');
+                    const bksection_3_Div = document.querySelector('.booking-section-3-div')
+                    bksection_3_Div.appendChild(error)
+                }
+                return
+            }
+
+            TPDirect.card.getPrime(function(result){
+                if(result.status !== 0){
+                    alert("getPrime 錯誤")
+                    return
+                }
+                else {
+                    console.log(result)
+                    console.log(result.card.prime)
+                    const url = `${window.port}/api/orders`
+                    fetch(url,{
+                        method: "POST",
+                        body : JSON.stringify({
+                            "prime": result.card.prime,
+                            "order": {
+                                "price": document.getElementById('booking-price').textContent,
+                                "trip": {
+                                    "attraction": {
+                                        "id": document.querySelector('.booking-section-1-div').id,
+                                        "name": document.getElementById('booking-name').textContent,
+                                        "address": document.getElementById('booking-address').textContent,
+                                        "image": document.querySelector('.booking-section-1-img').src
+                                    },
+                                    "date": document.getElementById('booking-date').textContent,
+                                    "time": document.getElementById('booking-time').textContent === "早上9點到下午4點" ? "morning " : "afternoon"
+                                },
+                                "contact": {
+                                    "name": bkName.value,
+                                    "email": bkEmail.value,
+                                    "phone": bkPhone.value
+                                }
+                            }
+                        }),
+                        headers : {
+                            "Content-Type": "application/json"
+                        }
+                    })
+                    .then(async(response)=>{
+                        return await response.json()
+                    })
+                    .then((result)=>{
+                        console.log(result.data)
+                        if(result.data.payment.message === "付款成功" && result.data.payment.status === 0){
+                            location.href = `${window.port}` + `/thankyou` + `?number=${result.data.number}`
+                        }
+                    })
+                }
+            })
         }
     }
 }
@@ -197,10 +283,21 @@ class Booking {
 document.addEventListener('DOMContentLoaded', async()=>{
     const bk = new Booking;
 
+
     let re = '\/booking'
     if(path.match(re)){
         await bk.fetchBookingData()
 
+        TPDirect.setupSDK('20358', 'app_ZjeUNi2efstOeNWcsc8eUtEWZTqbersDdxFU27U9bZDdGgWgHrG0zyF2v301', 'sandbox')
+        TPDirect.card.setup({ fields: fields })
+        TPDirect.card.onUpdate(function(update){
+            if(update.canGetPrime){
+                bkBtn.removeAttribute('disabled')
+            }
+            else{
+                bkBtn.setAttribute('disabled', true)
+            }
+        })
         bk.deleteIcon()
         bk.deleteCancel()
         bk.deleteBtn()

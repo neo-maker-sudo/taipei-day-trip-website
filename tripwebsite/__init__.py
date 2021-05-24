@@ -29,9 +29,11 @@ def create_app(config_class=Config):
     from tripwebsite.attraction.routes import attrs
     from tripwebsite.user.routes import users
     from tripwebsite.booking.routes import bookings
+    from tripwebsite.order.routes import orders
 
     app.register_blueprint(attrs)
     app.register_blueprint(users)
     app.register_blueprint(bookings)
+    app.register_blueprint(orders)
 
     return app

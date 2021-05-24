@@ -9,6 +9,7 @@ const mainSwitch_2 = document.getElementsByClassName("close")[1];
 const search = document.querySelector('.section-1-searchBox');
 const bookingBtn = document.querySelector('.navbar-brand-2');
 
+
 // section 2
 const section_2 = document.getElementById('section-2');
 const allImgDiv = document.getElementsByClassName('img-div');

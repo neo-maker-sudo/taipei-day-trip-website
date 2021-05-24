@@ -31,27 +31,26 @@
     <div class="booking-section-3">
         <div class="booking-section-3-div">
             <h3>信用卡付款資訊</h3>
-            <div>
+            <div style="display: flex;align-items: center;">
                 <label>卡片號碼 : </label>
-                <input type="text" oninput="value=value.replace(/[^\d]/g,'')" placeholder="**** **** **** ****"
-                    maxlength="16" pattern="\d{16}" required>
+                <div class="tyfield" id="booking-section-cardNumber"></div>
             </div>
-            <div>
+            <div style="display: flex;align-items: center;">
                 <label>過期時間 : </label>
-                <input type="text" placeholder="MM/YY" oninput="value=value.replace(/[^\d]/g,'')" maxlength="4"
-                    pattern="\d{4}" required>
+                <div class="tyfield" id="booking-section-expireDay"></div>
             </div>
-            <div>
+            <div style="display: flex;align-items: center;">
                 <label>驗證密碼 : </label>
-                <input type="text" placeholder="CVV" oninput="value=value.replace(/[^\d]/g,'')" maxlength="3"
-                    pattern="\d{3}" required>
+                <div class="tyfield" id="booking-section-cvv"></div>
             </div>
         </div>
     </div>
     <hr class="booking-hr">
     <div class="booking-section-4">
         <div class="booking-section-4-div">
-            <h3>總價 : 新台幣<span id="booking-total-price"></span>元</h3>
+            <h3>總價 : 新台幣
+                <span id="booking-total-price"></span>元
+            </h3>
             <button type="submit" id="booking-section-4-btn">確認訂購並付款</button>
         </div>
     </div>
