@@ -53,7 +53,7 @@ def order():
                 "name": contactName,
                 "email": contactEmail,
                 "national_id": "A123456789",
-                "phone_number": contactPhone  # 測試電話 0912345678
+                "phone_number": contactPhone  
             }
         }
         result = requests.post(
@@ -117,4 +117,4 @@ def orderNumber(orderNumber):
         else:
             return redirect(url_for('main.index'))
     else:
-        return jsonify({"error": True, "message": "you are not allow to do this action"}), 403
+        return jsonify({"error": True, "status": "UnAutherize", "message": "you are not allow to do this action"}), 403

@@ -11,20 +11,20 @@ class Thankyou {
             return await response.json()
         })
         .then((result)=>{
-            console.log(result)
-
             if(result.status === "failed") {
                 this.displayNoneOrder()
-            }else {
+            }
+            else if(result.status === "UnAutherize"){
+                location.href = `${window.port}` + "/"
+            }
+            else {
                 this.displayThankyouPage(result.data)
             }
         })
     }
 
     async displayThankyouPage(filterItem){
-        console.log(filterItem)
         await this.createItem()
-        // http://127.0.0.1:3000/thankyou?number=3c8caeafaf020e55421ad95088706ddaaadb34a5d2deac89ce242d79e0023496
         const tkTitle = document.querySelector('.thankyou-section-1-title');
         const tkNumber = document.querySelector('.thankyou-section-1-number');
         const tkContent = document.querySelector('.thankyou-section-1-content');
