@@ -301,6 +301,7 @@ class attraction {
 
 document.addEventListener('DOMContentLoaded', async()=>{
     const attr = new attraction;
+
     let re = "\/attraction\/[0-9]+"
     if(path.match(re)){
         await attr.fetchDetailData()
