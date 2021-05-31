@@ -20,6 +20,7 @@ const transport = document.getElementById('attraction-transport')
 const category = document.getElementById('attraction-category');
 const mrt = document.getElementById('attraction-mrt');
 
+
 class attraction {
 
     fetchDetailData(){
@@ -49,6 +50,8 @@ class attraction {
         transport.textContent = items.transport ? items.transport : "無"
         category.textContent = items.category
         mrt.textContent = items.mrt ? items.mrt : "無"
+
+        footer.style.display = 'block';
     }
 
 
@@ -123,6 +126,9 @@ class attraction {
     btnDelever(){
         attrBtn.onclick = function(){
             const date = document.getElementById('attraction-section-input').value
+            const datetrans = new Date(date)
+            const currentTime = new Date()
+
             if(date == ''){
                 if(!document.querySelector('.attr-error')){
                     const error = document.createElement('span');
@@ -131,10 +137,24 @@ class attraction {
                     errorAttr.classList.add('attr-error');
                 }
                 else if(document.querySelector('.attr-error').textContent !== '請選擇出發日期'){
-                    document.querySelector('.attr-error').textContent == '請選擇出發日期'
+                    document.querySelector('.attr-error').textContent = '請選擇出發日期'
                 }
                 return;
             }
+
+            if (currentTime.valueOf() > datetrans.valueOf()){
+                if(!document.querySelector('.attr-error')){
+                    const error = document.createElement('span');
+                    const errorAttr = document.getElementById('attraction-section-div').appendChild(error)
+                    errorAttr.textContent = '請選擇現今時間';
+                    errorAttr.classList.add('attr-error');
+                }
+                else if(document.querySelector('.attr-error').textContent !== '請選擇現今時間'){
+                    document.querySelector('.attr-error').textContent = '請選擇現今時間'
+                }
+                return;
+            }
+
             const morningCheck = morning.style.background
             const afternoonCheck = afternoon.style.background
             if(morningCheck == "rgb(68, 136, 153)" && afternoonCheck == "white"){

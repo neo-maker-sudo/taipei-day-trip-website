@@ -1,22 +1,22 @@
-from flask import Blueprint,request, jsonify
+from flask import Blueprint,request, jsonify, render_template
 from tripwebsite import db
 from tripwebsite.ma import tripSchema
 from tripwebsite.models import Attraction
-import json
 
 
 attrs = Blueprint('attr', __name__)
 
+
+@attrs.route("/attraction/<id>")
+def attraction(id):
+    return render_template("attraction.html")
 
 @attrs.route("/api/attractions")
 def attractions():
     page = request.args.get('page', None)
     keyword = request.args.get('keyword', None)
     if keyword is None:
-        sql_cmd_keywordNone = f"""
-            SELECT * FROM attraction ORDER BY id LIMIT {int(page)*12},12;
-        """
-        query = db.engine.execute(sql_cmd_keywordNone)
+        query = Attraction.query.order_by(Attraction.id.asc()).offset(int(page)*12).limit(12)
         output = tripSchema.dump(query)
         if output != []:
             for x in output:
@@ -25,21 +25,14 @@ def attractions():
         else:
             return jsonify({"error": True, "message": "Server error"}), 500
     elif page is None:
-        sql_cmd_pageNone = f"""
-            SELECT * FROM attraction WHERE name LIKE "%%{keyword}%%"
-        """
-        query_data_page = db.engine.execute(sql_cmd_pageNone)
+        query_data_page = Attraction.query.filter(Attraction.name.like(f'%%{keyword}%%'))
         keywordOutput = tripSchema.dump(query_data_page)
         return jsonify({"data": keywordOutput})
     else:
         try:
             if page == None:
                 return jsonify({"data": "page number error"})
-
-            sql_cmd = f"""
-                SELECT * FROM attraction WHERE name LIKE "%%{keyword}%%" ORDER BY id LIMIT {int(page)*12},12;
-            """
-            query_data = db.engine.execute(sql_cmd)
+            query_data = Attraction.query.filter(Attraction.name.like(f'%%{keyword}%%')).order_by(Attraction.id.asc()).limit(12)
             TotalOutput = tripSchema.dump(query_data)
             if TotalOutput != []:
                 if len(TotalOutput) < 12:
@@ -47,10 +40,7 @@ def attractions():
                         x['images'] = x['images'].split(",")
                     return jsonify({"nextPage": None, "data": TotalOutput})
                 else:
-                    sql_cmd_check = f"""
-                        SELECT * FROM attraction WHERE name LIKE "%%{keyword}%%" ORDER BY id LIMIT {(int(page)+1)*12},12;
-                    """
-                    query_data_check = db.engine.execute(sql_cmd_check)
+                    query_data_check = Attraction.query.filter(Attraction.name.like('%'+keyword+'%')).order_by(Attraction.id.asc()).offset((int(page)+1)*12).limit(12)
                     TotalOutput_check = tripSchema.dump(query_data_check)
                     if TotalOutput_check != []:
                         for x in TotalOutput:

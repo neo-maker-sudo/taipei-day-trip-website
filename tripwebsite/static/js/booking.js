@@ -27,6 +27,7 @@ const bkCardNumber = document.getElementById('booking-section-cardNumber');
 const bkCardExpireDay = document.getElementById('booking-section-expireDay');
 const bkCardCvv = document.getElementById('booking-section-cvv');
 
+
 var fields = {
     number: {
         // css selector
@@ -43,6 +44,7 @@ var fields = {
         placeholder: '後三碼'
     }
 }
+
 
 class Booking {
     fetchBookingData(){
@@ -72,6 +74,8 @@ class Booking {
         
         const bksection_1_noneInfo = document.querySelector('.booking-none-info');
         bksection_1_noneInfo.textContent = '目前沒有任何待預訂的行程';
+
+        footer.style.display = 'block';
     }
 
     async displayBooking(item){
@@ -110,6 +114,7 @@ class Booking {
         }
 
         this.deleteIcon()
+        footer.style.display = 'block';
     }
 
     createNoneItem(){
@@ -283,19 +288,51 @@ class Booking {
 document.addEventListener('DOMContentLoaded', async()=>{
     const bk = new Booking;
 
-
     let re = '\/booking'
     if(path.match(re)){
         await bk.fetchBookingData()
 
         TPDirect.setupSDK('20358', 'app_ZjeUNi2efstOeNWcsc8eUtEWZTqbersDdxFU27U9bZDdGgWgHrG0zyF2v301', 'sandbox')
-        TPDirect.card.setup({ fields: fields })
+        TPDirect.card.setup({ fields: fields, styles: {
+                'input': {
+                    'color': 'gray'
+                },
+                '.has-success': {
+                    'border-color': 'green'
+                },
+                '.valid': {
+                    'color': 'green',
+                    
+                },
+                '.invalid': {
+                    'color': 'red',
+                    'border-color': 'red'
+                },
+        }})
         TPDirect.card.onUpdate(function(update){
             if(update.canGetPrime){
                 bkBtn.removeAttribute('disabled')
             }
             else{
                 bkBtn.setAttribute('disabled', true)
+            }
+
+            if (update.status.number === 2) {
+                document.getElementById('booking-section-cardNumber').style.border = '1px solid red'
+            } else if (update.status.number === 0) {
+                document.getElementById('booking-section-cardNumber').style.border = '1px solid green'
+            }
+            
+            if (update.status.expiry === 2) {
+                document.getElementById('booking-section-expireDay').style.border = '1px solid red'
+            } else if (update.status.expiry === 0) {
+                document.getElementById('booking-section-expireDay').style.border = '1px solid green'
+            }
+            
+            if (update.status.ccv === 2) {
+                document.getElementById('booking-section-cvv').style.border = '1px solid red'
+            } else if (update.status.ccv === 0) {
+                document.getElementById('booking-section-cvv').style.border = '1px solid green'
             }
         })
         bk.deleteIcon()

@@ -1,5 +1,9 @@
 {% extends 'layout.html' %}
 
+{% block style %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/attraction.css') }}">
+{% endblock %}
+
 {% block content %}
 <div id="attraction-section-1">
     <div class="attraction-section-main">
@@ -15,7 +19,7 @@
     <div id="attraction-section-info">
         <h3 id="attraction-name"></h3>
         <div class="section-info-topDiv">
-            <p id="attraction-category"></p> 
+            <p id="attraction-category"></p>
             <p class="attraction-at">at</p>
             <p id="attraction-mrt"></p>
         </div>
@@ -26,7 +30,7 @@
                 選擇日期 : <input type="date" id="attraction-section-input" />
             </div>
             <div id="attraction-section-date">
-                選擇時間 : 
+                選擇時間 :
                 <div id="attraction-section-morning" style="background: rgb(68, 136, 153);"></div>
                 <label>上半天</label>
                 <div id="attraction-section-afternoon" style="background: white;"></div>
@@ -49,3 +53,6 @@
 </div>
 {% endblock content %}
 
+{% block script %}
+    <script src="{{ url_for('static', filename='js/attraction.js') }}"></script>
+{% endblock %}

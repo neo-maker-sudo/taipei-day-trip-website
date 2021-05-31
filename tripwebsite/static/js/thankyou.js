@@ -25,12 +25,15 @@ class Thankyou {
 
     async displayThankyouPage(filterItem){
         await this.createItem()
+        
         const tkTitle = document.querySelector('.thankyou-section-1-title');
         const tkNumber = document.querySelector('.thankyou-section-1-number');
         const tkContent = document.querySelector('.thankyou-section-1-content');
         tkTitle.textContent = `您好，${filterItem.contact.name}，恭喜您下訂單成功。`;
         tkNumber.textContent = filterItem.number ? filterItem.number : "無";
         tkContent.textContent = '祝您有一個美好的一天。';
+
+        footer.style.display = 'block';
     }
     
     async displayNoneOrder(){
@@ -38,6 +41,8 @@ class Thankyou {
         
         const bksection_1_noneInfo = document.querySelector('.thankyou-none-info');
         bksection_1_noneInfo.textContent = '目前沒有任何訂單紀錄';
+
+        footer.style.display = 'block';
     }
 
     createItem() {
@@ -56,6 +61,8 @@ class Thankyou {
         tksection_1_number.classList.add('thankyou-section-1-number');
         tkseciotn_1_content.classList.add('thankyou-section-1-content');
         footer.classList.add('main-footer');
+
+
     }
 
     createNoneItem(){

@@ -37,7 +37,6 @@ class User(db.Model):
         self.email = email
         self.password = password
 
-
 class Booking(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     date = db.Column(db.String(50), nullable=False)

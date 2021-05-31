@@ -5,12 +5,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% block style %}{% endblock %}
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/main.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/login.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/signup.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/booking.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/attraction.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/thankyou.css') }}">
     <title>台北一日遊</title>
 </head>
 
@@ -19,7 +17,7 @@
         <header>
             <nav class="nav">
                 <div class="nav-div-left">
-                    <li><a class="navbar-brand" href="{{ url_for('index') }}">台北一日遊</a></li>
+                    <li><a class="navbar-brand" href="{{ url_for('main.index') }}">台北一日遊</a></li>
                 </div>
                 <div class="nav-div-right">
                     <li><a class="navbar-brand-2">預定行程</a></li>
@@ -52,7 +50,6 @@
         </div>
     </form>
 
-
     <form onsubmit="return false">
         <div id="modal-signup" class="modal">
             <div class="signup-div">
@@ -68,17 +65,13 @@
             </div>
         </div>
     </form>
+    {% block script %}
+    {% endblock %}
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
     <script src="{{ url_for('static', filename='js/signMethod.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/attraction.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/booking.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/thankyou.js') }}"></script>
     <script src="https://js.tappaysdk.com/tpdirect/v5.7.0"></script>
     <script>
-        window.port = 'https://www.neohub.cloud'
-        //http://127.0.0.1:3000
-        // 18.182.228.61
-        // 
+        window.port = 'http://127.0.0.1:3000'
     </script>
 </body>
 

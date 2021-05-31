@@ -4,6 +4,10 @@ from tripwebsite import db
 
 bookings = Blueprint('bookings', __name__)
 
+@bookings.route("/booking")
+def booking():
+    return render_template("booking.html")
+
 @bookings.route("/api/booking", methods=['GET', 'POST', 'DELETE'])
 def apiBooking():
     if request.method == 'DELETE':

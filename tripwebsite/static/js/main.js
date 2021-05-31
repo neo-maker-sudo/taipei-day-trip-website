@@ -114,6 +114,7 @@ class Main {
             placeMrt[i].textContent = `${item.mrt}`
             placeCategory[i].textContent = `${item.category}`
         })
+        footer.style.display = 'block';
     }
 
     createItem(){
@@ -160,6 +161,13 @@ class Main {
         };
         const url = `${window.port}/api/attractions?page=${page}`;
         post_flag = true;
+
+        if(arrInfo.length === 0){
+            const loading = document.createElement("div")
+            section_2.appendChild(loading)
+            loading.classList.add("loading")
+        }
+        
         await fetch(url)
         .then( async (response)=>{
             const result = await response.json()
@@ -193,6 +201,9 @@ class Main {
     // first keyword submit
     submitKeyword(page){
         search.addEventListener('submit',(e)=>{
+            if(post_flag) {
+                return;
+            };
             e.preventDefault()
             const searchInput = document.getElementById('section-1-input').value;
             const url = `${window.port}/api/attractions?page=${page}&keyword=${searchInput}`;
