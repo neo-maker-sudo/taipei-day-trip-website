@@ -1,6 +1,7 @@
 import requests
 import json
 import os
+import re
 from flask import Blueprint, session, jsonify, request, redirect, url_for
 from tripwebsite.models import Order, User, Contact, Booking, Attraction
 from tripwebsite import db
@@ -18,6 +19,9 @@ def order():
         contactEmail = orderData['contact']['email']
         contactPhone = orderData['contact']['phone']
 
+        if re.match(r"^09[0-9]{8}$", contactPhone) is None:
+            return jsonify({"error": True, "message": "contact phone number error"}), 400
+        
         booking = Booking.query.filter_by(attraction_id=orderData['trip']['attraction']['id']).first()
         contact = Contact(contactName, contactEmail, contactPhone)
         if contact:
