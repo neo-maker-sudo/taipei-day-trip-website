@@ -32,7 +32,7 @@ def attractions():
         try:
             if page == None:
                 return jsonify({"data": "page number error"})
-            query_data = Attraction.query.filter(Attraction.name.like(f'%%{keyword}%%')).order_by(Attraction.id.asc()).limit(12)
+            query_data = Attraction.query.filter(Attraction.name.like(f'%%{keyword}%%')).order_by(Attraction.id.asc()).offset(int(page)*12).limit(12)
             TotalOutput = tripSchema.dump(query_data)
             if TotalOutput != []:
                 if len(TotalOutput) < 12:
