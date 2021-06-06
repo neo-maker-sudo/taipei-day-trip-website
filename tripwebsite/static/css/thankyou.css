@@ -32,6 +32,10 @@
     color: #666666;
 }
 
+.main-footer{
+    padding: 0 0 843px 0 !important;
+}
+
 @media only screen and (max-width: 1200px) {
     .thankyou-section-1{
         width: 90%;

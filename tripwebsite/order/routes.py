@@ -1,5 +1,7 @@
 import requests
 import json
+import os
+import re
 from flask import Blueprint, session, jsonify, request, redirect, url_for
 from tripwebsite.models import Order, User, Contact, Booking, Attraction
 from tripwebsite import db
@@ -17,8 +19,10 @@ def order():
         contactEmail = orderData['contact']['email']
         contactPhone = orderData['contact']['phone']
 
-        booking = Booking.query.filter_by(
-            attraction_id=orderData['trip']['attraction']['id']).first()
+        if re.match(r"^09[0-9]{8}$", contactPhone) is None:
+            return jsonify({"error": True, "message": "contact phone number error"}), 400
+        
+        booking = Booking.query.filter_by(attraction_id=orderData['trip']['attraction']['id']).first()
         contact = Contact(contactName, contactEmail, contactPhone)
         if contact:
             db.session.add(contact)
@@ -41,11 +45,11 @@ def order():
         url = "https://sandbox.tappaysdk.com/tpc/payment/pay-by-prime"
         headers = {
             "Content-Type": "application/json",
-            "x-api-key": "partner_Edfk54LpI10kb1Ho5aRh6bLAlMVIUPa2o2OcX5zfzwusFxLzAxBwHBYn"
+            "x-api-key": os.getenv("PARTNER_KEY")
         }
         primeData = {
             "prime": "test_3a2fb2b7e892b914a03c95dd4dd5dc7970c908df67a49527c0a648b2bc9",
-            "partner_key": "partner_Edfk54LpI10kb1Ho5aRh6bLAlMVIUPa2o2OcX5zfzwusFxLzAxBwHBYn",
+            "partner_key": os.getenv("PARTNER_KEY"),
             "merchant_id": "eyywqkgb_CTBC",
             "details": "Tappay test",
             "amount": orderData['price'],
@@ -56,8 +60,7 @@ def order():
                 "phone_number": contactPhone  
             }
         }
-        result = requests.post(
-            url, data=json.dumps(primeData), headers=headers)
+        result = requests.post(url, data=json.dumps(primeData), headers=headers)
         rawData = result.json()
 
         if rawData['status'] == 0:

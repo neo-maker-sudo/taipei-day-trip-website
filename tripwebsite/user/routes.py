@@ -1,5 +1,6 @@
 from flask import Blueprint, request, jsonify, session, redirect, url_for
 from tripwebsite.models import User
+from werkzeug.security import generate_password_hash, check_password_hash
 from tripwebsite import db
 
 users = Blueprint('users', __name__)
@@ -16,7 +17,8 @@ def apiLogin():
         if query:
             return jsonify({"error": True, "message": "email has already been taken, please use another one"}), 400
         else:
-            addUser = User(name, email, password)
+            password_hash = generate_password_hash(password)
+            addUser = User(name, email, password_hash)
             db.session.add(addUser)
             db.session.commit()
             return jsonify({"ok": True}), 201
@@ -27,7 +29,7 @@ def apiLogin():
         if query is None:
             return jsonify({"error": True, "message": "none exist user"}), 400
         else:
-            if query.password == password:
+            if check_password_hash(query.password, password):
                 session['email'] = query.email
                 return jsonify({"ok": True}), 201
             else:
