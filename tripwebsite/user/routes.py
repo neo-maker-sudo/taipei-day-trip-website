@@ -36,7 +36,6 @@ def apiLogin():
                 return jsonify({"error": True, "message": "password wrong"}), 400
     elif request.method == 'DELETE': # session invalid
         session.pop('email')
-        # session['email'] = False
         return jsonify({"ok": True})
     else: # GET
         sesson = session.get('email')

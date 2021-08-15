@@ -23,6 +23,9 @@ const placeMrt = document.getElementsByClassName('pCategory');
 // footer
 const footer = document.getElementById('footer');
 
+// csrf_token
+const csrf_token = document.querySelector("meta[name='csrf-token']").getAttribute("content")
+
 var page = 0;
 var index = 0;
 let username;
@@ -181,7 +184,7 @@ class Main {
                 const images = item.images
                 return { id, name, mrt, category, images } 
             })
-            post_flag =false
+            post_flag = false
             return {filterItem, nextPage}
         })
         .then((filterItem)=>{

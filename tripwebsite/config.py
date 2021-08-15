@@ -14,3 +14,4 @@ class Config:
     SQLALCHEMY_DATABASE_URI = f"mysql+pymysql://neo:{os.getenv('NEO_MYSQL')}@localhost:3306/website"
     DEBUG = True
     ENV = 'development'
+

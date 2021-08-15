@@ -38,7 +38,8 @@ loginBtn.onclick = ()=>{
                 password: passwordInputLogin.value
             }),
             headers : {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrf_token
             }
         })
         .then( async (response)=>{
@@ -89,7 +90,8 @@ signupBtn.onclick = ()=>{
                 password: passwordInputSignup.value
             }),
             headers : {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrf_token
             }
         })
         .then(async(response)=>{
@@ -121,6 +123,9 @@ logout.onclick = ()=>{
     url = `${window.port}/api/user`;
     fetch(url,{
         method: 'DELETE',
+        headers : {
+            'X-CSRFToken': csrf_token
+        }
     })
     .then( async (response)=>{
         data = await response.json()
